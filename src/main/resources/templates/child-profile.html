@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit child</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+<div style="flex-shrink: 0;">
+    <img th:src="${child.gender == 'MALE' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
+         alt="Child Avatar"
+         style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #4682B4; background: #fff;"
+         onerror="this.src='https://via.placeholder.com/80/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
+</div>
+
+<div style="flex: 1;">
+    <h4 style="margin-bottom: 10px; color: #333;">
+        <span th:text="${child.firstName + ' ' + child.lastName}">Child Name</span>
+    </h4>
+    <p style="margin: 5px 0;"><strong>First Name:</strong> <span th:text="${child.firstName}">-</span></p>
+    <p style="margin: 5px 0;"><strong>Last Name:</strong> <span th:text="${child.lastName}">-</span></p>
+    <p style="margin: 5px 0;"><strong>Gender:</strong> <span th:text="${child.gender.getDisplayName()}">-</span></p>
+    <form class="form-group"
+          th:action="@{/children/{id}/child-profile(id=${child.id})}"
+          method="post"
+          th:object="${child}">
+        <input type="hidden" name="_method" value="put">
+        <label for="school">School</label>
+        <input type="text" id="school" placeholder="Child's School" th:field="*{school}">
+        <label for="grade">Grade</label>
+        <input type="text" id="grade" placeholder="Child's Grade" th:field="*{grade}">
+        <button type="submit" class="btn btn-primary">Update Child</button>
+    </form>
+</div>
+
+</body>
+</html>

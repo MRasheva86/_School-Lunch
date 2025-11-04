@@ -1,0 +1,84 @@
+/* register.css */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('https://img.freepik.com/free-photo/indian-food-circular-frame-with-copy-space_23-2148747658.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(0,0,0,0.28);
+}
+
+.register-card {
+    background: rgba(173, 216, 230, 0.95); /* Light blue background */
+    width: 500px;
+    max-width: 96%;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.32);
+    border: 2px solid rgba(135, 206, 235, 0.3);
+}
+
+.register-card h2 {
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 0.8rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    margin-top: 0.4rem;
+    border: 2px solid rgba(135, 206, 235, 0.5);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.8);
+    transition: border-color .15s, box-shadow .15s;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #87CEEB;
+    box-shadow: 0 4px 14px rgba(135, 206, 235, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    color: #444;
+    font-weight: 500;
+}
+
+button.primary {
+    width: 100%;
+    margin-top: 1.5rem;
+    background: linear-gradient(90deg, #87CEEB, #4682B4);
+    color: #fff;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(70, 130, 180, 0.3);
+    transition: transform 0.2s ease;
+}
+
+button.primary:hover {
+    transform: translateY(-1px);
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order page</title>
+    <style>
+        body {font-family: system-ui, sans-serif; margin: 2rem;}
+        form {max-width: 500px; margin: 0 auto; background: #f9f9f9; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+        label {display: block; margin-top: 1rem; font-weight: 600;}
+        select, input[type=number] {width: 100%; padding: 0.5rem; margin-top: 0.5rem; border: 1px solid #ccc; border-radius: 6px;}
+        button {margin-top: 1.5rem; padding: 0.7rem 1.2rem; background-color: #2563eb; border: none; color: white; border-radius: 6px; cursor: pointer;}
+        button:hover {background-color: #1d4ed8;}
+        .success {color: #065f46; margin-top: 1rem;}
+        .error {color: #b91c1c; margin-top: 1rem;}
+    </style>
+</head>
+<body>
+<h1>Create an Order</h1>
+<h1 th:text="'Lunches for ' + ${child.firstName} ">Kid Name</h1>
+
+<section>
+    <h2>All lunches</h2>
+    <table>
+        <thead>
+        <tr><th>Date</th><th>Price</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${lunches}">
+            <td th:text="${l.getOrderDate()}">2025-01-01</td>
+            <td th:text="${l.getTotalPrice()}">0.00</td>
+            <td th:text="${l.getMeal()}">Description</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(lunches)}">
+            <td colspan="3">No lunches recorded</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+    <div class="container">
+
+        <section>
+            <h2>Add lunch</h2>
+            <form th:action="@{/kids/{kidId}/lunches(kidId=${child.id})}" th:method="post" th:object="${lunchRequest}">
+                <label>Day of the week</label>
+                <select  th:field="*{day}">
+                    <option th:each="day : ${T(app.lunch.model.WeekDay).values()}" th:value="${day}" th:text="${day}">abv</option>
+                </select>
+                <select  th:field="*{meal}">
+                    <option th:each="meal : ${T(app.lunch.model.Meal).values()}" th:value="${meal}" th:text="${meal}">abv</option>
+                </select>
+                <button type="submit">Add Lunch</button>
+            </form>
+        </section>
+    </div>
+
+</form>
+</body>
+</html>

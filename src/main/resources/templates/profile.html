@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit profile</title>
+  <link rel="stylesheet" href="/css/register.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="edit-container">
+  <div class="edit-card">
+    <h2>Update Account</h2>
+    <p style="text-align: center; margin-bottom: 1.5rem; color: #666;">Update your personal info here ⤵️</p>
+
+<!--    <form class="form" th:action="@{/edit}" th:method="PATCH" th:object="${editRequest}">-->
+
+
+      <label for="password">Password</label>
+      <input type="password" placeholder="Password (8 characters)" id="password" >
+<!--      <p class="alert-warning" th:if="${#fields.hasErrors('password')}" rth:erors="*{password}">Error message</p>-->
+
+      <label for="email">Email</label>
+      <input type="email" placeholder="Email" id="email" >
+<!--      <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error message</p>-->
+
+      <button type="submit" class="primary">Edit</button>
+<!--      <p class="form-already" style="text-align: center; margin-top: 1rem;">Already have an account? <a href="/login" style="color: #4682B4; text-decoration: none;">Login</a>!</p>-->
+    </form>
+  </div>
+</div>
+<th:block th:insert="fragments/my-fragments :: my-website-footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,103 @@
+/* login.css */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('https://img.freepik.com/free-photo/indian-food-circular-frame-with-copy-space_23-2148747658.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+}
+
+.login-card {
+    background: rgba(173, 216, 230, 0.95); /* Light blue background */
+    width: 400px;
+    max-width: 95%;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border: 2px solid rgba(135, 206, 235, 0.3);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.login-header .logo {
+    font-size: 2.2rem;
+    margin-bottom: 0.4rem;
+}
+
+.form h3 {
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+    color: #333;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    color: #444;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    margin-top: 0.4rem;
+    border: 2px solid rgba(135, 206, 235, 0.5);
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.8);
+    transition: border-color .15s, box-shadow .15s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #87CEEB;
+    box-shadow: 0 4px 14px rgba(135, 206, 235, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+button[type="submit"] {
+    margin-top: 1.25rem;
+    width: 100%;
+    background: linear-gradient(90deg, #87CEEB, #4682B4);
+    color: #fff;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(70, 130, 180, 0.3);
+    transition: transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-1px);
+}
+
+.alert-warning {
+    color: #b00020;
+    font-size: 0.85rem;
+    margin-top: 0.35rem;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}

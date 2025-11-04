@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Login - School Lunch Manager</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="background-plate">
+        <div class="plate">
+            <div class="plate-rim"></div>
+            <div class="plate-center"></div>
+        </div>
+        <div class="utensils">
+            <div class="knife">
+                <div class="knife-handle"></div>
+                <div class="knife-blade"></div>
+            </div>
+            <div class="fork">
+                <div class="fork-handle"></div>
+                <div class="fork-prongs">
+                    <div class="prong"></div>
+                    <div class="prong"></div>
+                    <div class="prong"></div>
+                    <div class="prong"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="logo">👨🏻‍🍳</h1>
+                <h2>Let's prepare your kids lunch together</h2>
+            </div>
+
+            <form class="form" th:action="@{/login}" th:method="POST" th:object="${loginRequest}">
+
+                <h3>Login Here</h3>
+
+                <p class="succeeded-message" ></p>
+                <label for="username">Username</label>
+                <input type="text" placeholder="Username" id="username"  th:field="*{username}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" >Invalid username</p>
+
+                <label for="password">Password</label>
+                <input type="password" placeholder="Password" id="password"  th:field="*{password}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Invalid password</p>
+
+                <button type="submit">Log In</button>
+
+            </form>
+
+            <div class="login-footer">
+                <p>Don't have an account? <a href="/register" class="register-link">Register here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:insert="fragments/my-fragments :: my-website-footer"></th:block>
+</html>

@@ -1,0 +1,98 @@
+:root {
+    --card-bg: rgba(255,255,255,0.92);
+    --accent: #ff6b3d;
+    --muted: #666;
+    --glass: rgba(255,255,255,0.6);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+html,body { height: 100%; }
+
+/* Background image (applies to all pages that include this CSS) */
+body {
+    background-image: url("https://img.freepik.com/free-photo/indian-food-circular-frame-with-copy-space_23-2148747658.jpg?semt=ais_hybrid&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* dim overlay so text is readable */
+.bg-overlay {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Header / Footer */
+.top { color: #fff; margin-bottom: 18px; text-align: center; }
+.top h1 { font-size: 28px; letter-spacing: .5px; }
+
+/* Cards */
+.center-card {
+    width: 100%;
+    max-width: 920px;
+    background: rgba(255,255,255,0.92);
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    text-align: center;
+    color: #222;
+}
+.form-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--card-bg);
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    color: #111;
+}
+
+/* form */
+.form-card h2, .center-card h2 { margin-bottom: 12px; }
+.form-card form { display: grid; gap: 12px; margin-top: 8px; }
+label { display: flex; flex-direction: column; font-size: 13px; color: #333; gap: 6px; }
+input[type="text"], input[type="email"], input[type="password"] {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 14px;
+}
+
+/* buttons */
+.btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn.outline {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.6);
+}
+.actions { margin-top: 16px; display: flex; gap: 12px; justify-content: center; }
+
+/* misc */
+.muted { color: var(--muted); margin-top: 10px; text-align: center; font-size: 13px; }
+.footer { margin-top: 22px; color: #fff; font-size: 13px; opacity: 0.9; }
+
+/* responsive */
+@media (max-width: 520px) {
+    .center-card { margin: 0 12px; padding: 18px; }
+    .form-card { margin: 0 12px; padding: 16px; }
+}
+
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet</title>
+    <link rel="stylesheet" href="/css/wallet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wallet-container" th:with="p=${parent}">
+    <header>
+        <h1>Wallet</h1>
+        <p th:text="${p != null ? p.firstName + ' ' + p.lastName : 'Guest'}">Parent Name</p>
+    </header>
+
+    <!-- 💰 Balance Section -->
+    <section class="balance">
+        <h2>Available Balance</h2>
+        <p class="amount" th:text="${p.wallet.balance + ' ' + p.wallet.currency}">
+            0.00 EUR
+        </p>
+    </section>
+
+    <!-- 💵 Add Money Section -->
+    <section class="actions">
+        <form th:action="@{/wallet}" th:object="${walletDepositRequest}" method="post" class="add-money-form">
+            <label for="amount">Enter Amount:</label>
+            <input type="number" id="amount" th:field="*{amount}" min="1" step="0.01" placeholder="0.00" required>
+            <button type="submit" class="primary">Add Money</button>
+        </form>
+
+        <section class="transactions" th:if="${transactions != null}">
+            <h2>Transaction History</h2>
+            <table class="transaction-table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody id="transactionBody">
+                <tr th:each="t : ${transactions}">
+                    <td th:text="${#temporals.format(t.date, 'dd-MM-yyyy HH:mm')}">12-10-2025</td>
+                    <td th:text="${t.description}">Deposit</td>
+                    <td th:text="${t.amount + ' ' + p.wallet.currency}">10.00 EUR</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(transactions)}">
+                    <td colspan="3" >No transactions yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </section>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const addMoneyForm = document.querySelector(".add-money-form");
+        const balanceElement = document.querySelector(".amount");
+        const transactionTableBody = document.querySelector("#transactionBody");
+
+        addMoneyForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(addMoneyForm);
+            const amount = formData.get("amount");
+
+            if (!amount || amount <= 0) {
+                alert("Please enter a valid amount!");
+                return;
+            }
+
+            try {
+                const response = await fetch("/wallet", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({ amount })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to add money.");
+                }
+
+                // ✅ Fetch the updated wallet info
+                const walletData = await fetch("/wallet/history");
+                const htmlText = await walletData.text();
+
+                // Parse and extract the updated parts
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, "text/html");
+
+                // Update balance
+                const newBalance = doc.querySelector(".amount").innerText;
+                balanceElement.innerText = newBalance;
+
+                // Update transaction table
+                const newTransactionRows = doc.querySelector("#transactionBody").innerHTML;
+                transactionTableBody.innerHTML = newTransactionRows;
+
+            } catch (error) {
+                console.error(error);
+                alert("Something went wrong while adding money.");
+            }
+
+            // Reset form
+            addMoneyForm.reset();
+        });
+    });
+</script>
+
+</body>
+</html>

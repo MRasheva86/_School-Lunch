@@ -1,0 +1,89 @@
+/* index.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    color: #222;
+    background-image: url('https://img.freepik.com/free-photo/indian-food-circular-frame-with-copy-space_23-2148747658.jpg?semt=ais_hybrid&w=740&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* subtle dark overlay for readability */
+.page-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    pointer-events: none;
+}
+
+/* navbar styling */
+.navbar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+}
+
+.navbar-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-right {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-btn {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-btn:hover {
+    background: rgba(135, 206, 235, 0.3);
+    border-color: #87CEEB;
+    transform: translateY(-2px);
+}
+
+/* simple centered hero */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+    position: relative;
+    z-index: 5;
+}
+
+.hero .card {
+    background: rgba(173, 216, 230, 0.95);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid rgba(135, 206, 235, 0.3);
+}
+
+.cta-btn {
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(70, 130, 180, 0.4) !important;
+}

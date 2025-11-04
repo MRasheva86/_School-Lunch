@@ -1,0 +1,149 @@
+/* === GLOBAL STYLES === */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.wallet-container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 30px 40px;
+}
+
+/* === HEADER === */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 28px;
+    color: #2a3d66;
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* === BALANCE === */
+.balance {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.balance h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.balance .amount {
+    font-size: 32px;
+    font-weight: 600;
+    color: #27ae60;
+}
+
+/* === ADD MONEY FORM === */
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.add-money-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-money-form label {
+    font-weight: 500;
+}
+
+.add-money-form input {
+    width: 120px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.primary {
+    background-color: #2a3d66;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.primary:hover {
+    background-color: #1f2d4d;
+}
+
+.btn {
+    background-color: #e3e8f0;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #2a3d66;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #d1d8e3;
+}
+
+/* === TRANSACTIONS TABLE === */
+.transactions {
+    margin-top: 20px;
+}
+
+.transactions h2 {
+    margin-bottom: 15px;
+    color: #2a3d66;
+    text-align: center;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.transaction-table th {
+    background-color: #2a3d66;
+    color: white;
+    text-align: left;
+    padding: 10px;
+}
+
+.transaction-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.transaction-table tr:hover {
+    background-color: #f2f5fa;
+}
+
+.transaction-table td:last-child {
+    font-weight: 600;
+    color: #27ae60;
+    text-align: right;
+}
