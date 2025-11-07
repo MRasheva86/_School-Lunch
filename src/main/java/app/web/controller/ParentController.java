@@ -6,15 +6,16 @@ import app.security.UserData;
 import app.web.dto.EditRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -61,7 +62,24 @@ public class ParentController {
         redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");
         return "redirect:/home/profile";
     }
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getUsers() {
 
+        List<Parent> users = parentService.getAllParents();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("users");
+        modelAndView.addObject("users", users);
+
+        return modelAndView;
+    }
+    @DeleteMapping("/users/{userId}")
+   // @PreAuthorize("hasRole('ADMIN')")
+    public String deleteUser(@AuthenticationPrincipal UserData user, @PathVariable UUID userId) {
+        parentService.deleteParent(userId);
+        return "redirect:/home/users";
+    }
 
 
 

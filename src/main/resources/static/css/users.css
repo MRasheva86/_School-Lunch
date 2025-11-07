@@ -1,0 +1,115 @@
+/* Overall page background fix */
+body {
+    background-color: #f8f3eb;
+    margin: 0;
+    font-family: "Georgia", serif;
+}
+
+/* Section wrapper */
+.users {
+    margin-left: calc(300px + 2mm); /* Sidebar width + 2mm gap */
+    margin-right: 2rem; /* Gap on right */
+    padding-top: 2rem;
+}
+
+/* Table container */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Table core */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fdf8f3;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+/* Sticky header */
+.users-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+/* Banner header: "Users of School Lunch" */
+.users-table .header-main th {
+    background: linear-gradient(90deg, #1e3a5f, #2e577a);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 800;
+    padding: 1.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 3px solid #1b314b;
+}
+
+/* Sub header: "Users list" */
+.users-table .header-sub th {
+    background: #3b6a9a;
+    color: #f5f5f5;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 0.8rem;
+    text-align: center;
+    border-bottom: 2px solid #274760;
+}
+
+/* Column headers */
+.users-table .column-header th {
+    background-color: #2e577a;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.05rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.5px;
+}
+
+/* Table body */
+.users-table td {
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: #333;
+    word-wrap: break-word;
+}
+
+/* Alternating row colors */
+.users-table tr:nth-child(even) td {
+    background-color: #fffdf8;
+}
+
+/* Hover effect */
+.users-table tbody tr:hover td {
+    background-color: rgba(70, 130, 180, 0.12);
+    transition: background 0.3s ease;
+}
+
+.action-btn.remove:hover {
+    background-color: #d9534f;
+}
+
+/* Empty message */
+.empty-message {
+    text-align: center;
+    font-style: italic;
+    color: #555;
+    padding: 1.5rem;
+}
+
+/* Responsive behavior */
+@media (max-width: 1000px) {
+    .users {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .table-wrapper {
+        width: 100%;
+    }
+}

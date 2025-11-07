@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -49,22 +50,6 @@ public class ParentService implements UserDetailsService {
         this.walletService = walletService;
     }
 
-//    public Parent login(LoginRequest loginRequest) {
-//
-//        Optional<Parent> optionalParent = parentRepository.findByUsername(loginRequest.getUsername());
-//        if (optionalParent.isEmpty()) {
-//            throw new RuntimeException("Incorrect username or password.");
-//        }
-//
-//        String rawPassword = loginRequest.getPassword();
-//        String hashedPassword = optionalParent.get().getPassword();
-//        if (!passwordEncoder.matches(rawPassword, hashedPassword)) {
-//            throw new RuntimeException("Incorrect username or password.");
-//        }
-//
-//        return optionalParent.get();
-//    }
-
     @Transactional
     public Parent register(RegisterRequest registerRequest) {
         this.registerRequest = registerRequest;
@@ -82,6 +67,8 @@ public class ParentService implements UserDetailsService {
                 .lastName(registerRequest.getLastName())
                 .role(registerRequest.getRole())
                 .isActive(true)
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
                 .build();
 
 
@@ -108,6 +95,15 @@ public class ParentService implements UserDetailsService {
         parent.setEmail(editRequest.getEmail());
         parent.setPassword(passwordEncoder.encode(editRequest.getPassword()));
         parent.setRole(editRequest.getRole());
+        parent.setUpdatedOn(LocalDateTime.now());
         parentRepository.save(parent);
+    }
+
+    public List<Parent> getAllParents() {
+        return parentRepository.findAll();
+    }
+
+    public void deleteParent(UUID userId) {
+        parentRepository.deleteById(userId);
     }
 }

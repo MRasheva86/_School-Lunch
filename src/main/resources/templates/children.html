@@ -50,6 +50,7 @@
                         </a>
 
                         <form th:action="@{/children/{childId}(childId=${child.id})}" method="post" style="display:inline;">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             <input type="hidden" name="_method" value="delete">
                             <button type="submit"
                                     onclick="return confirm('Are you sure you want to remove this child? This action cannot be undone.');"
@@ -73,11 +74,11 @@
         </button>
 
         <div id="addChildSection"
-             style="display: none; margin-top: 30px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
-            <h3 style="margin-bottom: 15px;">Add New Child</h3>
+             style="display: none; margin-top: 10px; padding-top: 10px; border-top: 2px solid #e0e0e0;">
+            <h3 style="margin-bottom: 30px;">Add New Child</h3>
 
             <form th:action="@{/children/registration}" th:method="POST" th:object="${childRequest}"
-                  style="display: flex; flex-direction: column; gap: 15px;">
+                  style="display: flex; flex-direction: column; gap: 10px;">
 
                 <div>
                     <label for="firstName" style="display: block; margin-bottom: 5px; font-weight: 500;">First Name:</label>

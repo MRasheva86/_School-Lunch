@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,4 +45,8 @@ public class Parent {
     private ParentRole role;
 
     private boolean isActive;
+
+    private LocalDateTime createdOn;
+
+    private LocalDateTime updatedOn;
 }
