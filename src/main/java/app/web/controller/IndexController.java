@@ -50,31 +50,10 @@ public class IndexController {
 
         if (authentication != null && authentication.getName() != null) {
             String username = authentication.getName();
-            try {
-                Parent parent = parentService.findByUsername(username);
-                modelAndView.addObject("parent", parent);
-                
-                // Use parent's wallet directly from the entity relationship
-                Wallet wallet = parent.getWallet();
-                if (wallet == null) {
-                    // Fallback: try to find by parent ID
-                    wallet = walletService.getWalletByParentId(parent.getId());
-                }
-                if (wallet != null) {
-                    modelAndView.addObject("wallet", wallet);
-                } else {
-                    // If no wallet exists, create one (shouldn't happen for registered users)
-                    wallet = walletService.createWallet(parent);
-                    parent.setWallet(wallet);
-                    modelAndView.addObject("wallet", wallet);
-                }
-            } catch (Exception e) {
-                // Log error and redirect to login if parent not found
-                return new ModelAndView("redirect:/login?error=authentication");
-            }
-        } else {
-            // Redirect to login if not authenticated
-            return new ModelAndView("redirect:/login");
+            Parent parent = parentService.findByUsername(username);
+            modelAndView.addObject("parent", parent);
+            Wallet wallet = walletService.getWalletByParentId(parent.getId());
+            modelAndView.addObject("wallet", wallet);
         }
 
         return modelAndView;

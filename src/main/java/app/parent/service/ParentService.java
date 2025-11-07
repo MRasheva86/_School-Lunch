@@ -11,7 +11,6 @@ import app.wallet.model.Wallet;
 import app.wallet.service.WalletService;
 import app.web.dto.EditRequest;
 import app.web.dto.RegisterRequest;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -81,7 +80,7 @@ public class ParentService implements UserDetailsService {
                 .email(registerRequest.getEmail())
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())
-                .role(ParentRole.ROLE_USER)
+                .role(registerRequest.getRole())
                 .isActive(true)
                 .build();
 
@@ -96,10 +95,6 @@ public class ParentService implements UserDetailsService {
         return childRepository.findAll();
     }
 
-    public Child getChildByName(Parent parent, String name) {
-        return childRepository.findChildByFirstName(name);
-    }
-
     public Parent getById(UUID id) {
         return parentRepository.findById(id).orElseThrow(() -> new DomainExeption("Parent by id [%s] was not found.".formatted(id)));
     }
@@ -108,12 +103,10 @@ public class ParentService implements UserDetailsService {
         return parentRepository.findByUsername(username).orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
     }
 
-    public void editParent(String username, @Valid EditRequest editRequest) {
-
-        Parent parent = findByUsername(username);
-        parent.setPassword(passwordEncoder.encode(editRequest.getPassword()));
+    public void updateProfile(UUID parentId, EditRequest editRequest) {
+        Parent parent = getById(parentId);
         parent.setEmail(editRequest.getEmail());
+        parent.setPassword(passwordEncoder.encode(editRequest.getPassword()));
         parentRepository.save(parent);
-
     }
 }

@@ -1,5 +1,6 @@
 package app.web.dto;
 
+import app.parent.model.ParentRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,6 +21,8 @@ public class EditRequest {
     @NotNull
     @Email
     private String email;
+
+    private ParentRole role;
 
 
 }

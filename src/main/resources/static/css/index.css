@@ -58,7 +58,7 @@ body {
 }
 
 /* simple centered hero */
-.hero {
+.box {
     min-height: 80vh;
     display: flex;
     align-items: center;
@@ -68,7 +68,7 @@ body {
     z-index: 5;
 }
 
-.hero .card {
+.box .card {
     background: rgba(173, 216, 230, 0.95);
     padding: 3rem;
     border-radius: 20px;

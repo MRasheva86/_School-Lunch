@@ -14,7 +14,7 @@
     <a href="/children" class="nav-item">My Kids</a>
     <a href="/wallet" class="nav-item">Wallet</a>
     <h1>Settings</h1>
-    <a href="/home/profiles" class="nav-item">Edit Profile</a>
+    <a href="/home/profile" class="nav-item">Edit Profile</a>
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 
@@ -26,7 +26,7 @@
             <div th:each="child : ${children}" class="child-card" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #4682B4; display: flex; align-items: flex-start; gap: 20px;">
                 <!-- Avatar on the left -->
                 <div style="flex-shrink: 0;">
-                    <img th:src="${child.gender == 'MALE' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
+                    <img th:src="${child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
                          alt="Child Avatar"
                          style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #4682B4; background: #fff;"
                          onerror="this.src='https://via.placeholder.com/80/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
@@ -36,29 +36,24 @@
                     <h4 style="margin-bottom: 10px; color: #333;">
                         <span th:text="${child.firstName + ' ' + child.lastName}">Child Name</span>
                     </h4>
-                    <p style="margin: 5px 0;"><strong>First Name:</strong> <span th:text="${child.firstName}">-</span></p>
-                    <p style="margin: 5px 0;"><strong>Last Name:</strong> <span th:text="${child.lastName}">-</span></p>
                     <p style="margin: 5px 0;"><strong>School:</strong> <span th:text="${child.school}">-</span></p>
                     <p style="margin: 5px 0;"><strong>Grade:</strong> <span th:text="${child.grade}">-</span></p>
                     <p style="margin: 5px 0;"><strong>Gender:</strong> <span th:text="${child.gender.getDisplayName()}">-</span></p>
 
                     <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
                         <a th:href="@{/children/{childId}/lunches(childId=${child.id})}"
-                           style="display: inline-block;opacity: 0.9; padding: 8px 16px; background: #4682B4; color: white; text-decoration: none; border-radius: 5px; font-weight: 500;">
+                           class="action-btn">
                             View Lunches
                         </a>
-                        <form th:action="@{/children/{childId}(childId=${child.id})}" th:method="PUT" style="display:inline;">
-                            <input type="hidden" name="_method" value="put">
-                            <button type="submit"
-                                    style="display: inline-block; opacity: 0.9;width: 120px; height: 35px; padding: 8px 16px; background: #4682B4; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">
-                                Edit
-                            </button>
-                        </form>
+                        <a th:href="@{/children/{childId}/child-profile(childId=${child.id})}" class="action-btn">
+                            Edit
+                        </a>
+
                         <form th:action="@{/children/{childId}(childId=${child.id})}" method="post" style="display:inline;">
                             <input type="hidden" name="_method" value="delete">
-                            <button type="submit" 
+                            <button type="submit"
                                     onclick="return confirm('Are you sure you want to remove this child? This action cannot be undone.');"
-                                    style="display: inline-block;width: 120px;height: 35px;opacity: 0.9; padding: 8px 16px; background: #f87682; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">
+                                    class="action-btn remove">
                                 Remove
                             </button>
                         </form>
@@ -73,7 +68,7 @@
         </div>
 
         <button id="toggleAddChildBtn"
-                style="padding: 10px 20px; background-color: #4682B4; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; margin-top: 20px;">
+                class="action-btn add">
             ➕ Add Child
         </button>
 
@@ -88,34 +83,34 @@
                     <label for="firstName" style="display: block; margin-bottom: 5px; font-weight: 500;">First Name:</label>
                     <input type="text" id="firstName" th:field="*{firstName}"
                            placeholder="Enter first name" required
-                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                           style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
 
                 <div>
                     <label for="lastName" style="display: block; margin-bottom: 5px; font-weight: 500;">Last Name:</label>
                     <input type="text" id="lastName" th:field="*{lastName}"
                            placeholder="Enter last name" required
-                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                           style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
 
                 <div>
                     <label for="school" style="display: block; margin-bottom: 5px; font-weight: 500;">School:</label>
                     <input type="text" id="school" th:field="*{school}"
                            placeholder="Enter school name" required
-                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                           style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
 
                 <div>
                     <label for="grade" style="display: block; margin-bottom: 5px; font-weight: 500;">Grade:</label>
                     <input type="number" id="grade" th:field="*{grade}"
                            placeholder="Enter grade" min="1" max="12" required
-                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                           style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 </div>
 
                 <div>
                     <label for="gender" style="display: block; margin-bottom: 5px; font-weight: 500;">Gender:</label>
-                    <select id="gender" th:field="*{gender}" required
-                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <select id="gender" placeholder="Select gender" th:field="*{gender}" required
+                            style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
 
                         <option th:each="g : ${T(app.child.model.ChildGender).values()}"
                                 th:value="${g}"

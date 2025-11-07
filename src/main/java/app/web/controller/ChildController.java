@@ -56,13 +56,27 @@ public class ChildController {
         return "redirect:/children";
     }
 
-    @PutMapping("/children/{childId}/child-profile")
+    @GetMapping("/{childId}/child-profile")
+    public ModelAndView getChildProfilePage(@PathVariable UUID childId) {
+        Child child = childService.getChildById(childId);
+        EditChildRequest editChildRequest = new EditChildRequest();
+        editChildRequest.setSchool(child.getSchool());
+        editChildRequest.setGrade(child.getGrade());
+        ModelAndView modelAndView = new ModelAndView("child-profile");
+        modelAndView.addObject("child", child);
+        modelAndView.addObject("editChildRequest", editChildRequest);
+        return modelAndView;
+    }
+
+    @PutMapping("/{childId}/child-profile")
     public ModelAndView updateChildProfile(@Valid EditChildRequest editChildRequest, BindingResult bindingResult, @PathVariable UUID childId) {
 
         if (bindingResult.hasErrors()) {
             Child child = childService.getChildById(childId);
             ModelAndView modelAndView = new ModelAndView("child-profile");
             modelAndView.addObject("child", child);
+            modelAndView.addObject("editChildRequest", editChildRequest);
+            return modelAndView;
         }
 
         childService.updateProfile(childId, editChildRequest);

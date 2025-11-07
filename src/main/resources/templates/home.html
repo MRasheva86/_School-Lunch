@@ -11,13 +11,6 @@
 </head>
 <body>
 
-<!--&lt;!&ndash; 🏫 Welcome Message &ndash;&gt;-->
-<!--<header class="welcome-header">-->
-<!--    <h1>School Lunch Manager</h1>-->
-<!--    <p id="welcomeMessage" th:text="'Welcome back, ' + ${parent.getFirstName()}">Welcome back, Parent!</p>-->
-<!--</header>-->
-
-<!-- Sidebar -->
 <aside class="sidebar">
     <h1>Menu</h1>
 
@@ -25,19 +18,21 @@
     <a href="/wallet" class="nav-item">Wallet</a>
 
     <h1>Settings</h1>
-    <a href="/profiles" class="nav-item">Edit Profile</a>
+
+    <a href="/profile" class="nav-item">Edit Profile</a>
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 
 
     <section class="main-section">
         <div class="card profile-card">
-            <h3>👤 Personal Information</h3>
+            <h3>📜 Personal Information</h3>
             <p><strong>First Name:</strong> <span th:text="${parent.getFirstName()}" id="firstName">John</span></p>
             <p><strong>Last Name:</strong> <span th:text="${parent.getLastName()}" id="lastName">Doe</span></p>
             <p><strong>Username:</strong> <span th:text="${parent.getUsername()}" id="username">johndoe</span></p>
             <p><strong>Email:</strong> <span th:text="${parent.getEmail()}" id="email">john@example.com</span></p>
             <p><strong>Balance:</strong> <span th:text="${wallet.getBalance() + ' ' + wallet.getCurrency()}">100</span></p>
+            <p><strong>Role:</strong> <span th:text="${parent.role.getDisplayName()}">user</span></p>
         </div>
     </section>
 

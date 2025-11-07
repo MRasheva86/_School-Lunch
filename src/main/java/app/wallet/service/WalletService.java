@@ -45,14 +45,21 @@ public class WalletService {
 
     @Transactional
     public Transaction deposit(UUID walletId, BigDecimal amount, String description) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new DomainExeption("Deposit amount must be greater than 0.");
+        }
 
         Wallet wallet = getById(walletId);
 
-        wallet.setBalance(wallet.getBalance().add(amount));
+        BigDecimal currentBalance = wallet.getBalance() == null ? BigDecimal.ZERO : wallet.getBalance();
+        BigDecimal newBalance = currentBalance.add(amount);
+
+        wallet.setBalance(newBalance);
+        wallet.setUpdatedOn(LocalDateTime.now());
         walletRepository.save(wallet);
 
         return transactionService.createTransaction(
-                wallet.getOwner(),
+                wallet,
                 amount,
                 wallet.getBalance(),
                 wallet.getCurrency(),
@@ -65,12 +72,17 @@ public class WalletService {
 
     @Transactional
     public Transaction payment(UUID walletId, BigDecimal amount, String description) {
-
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new DomainExeption("Payment amount must be greater than 0.");
+        }
         Wallet wallet = getById(walletId);
 
-        if (wallet.getBalance().compareTo(amount) < 0) {
+        BigDecimal currentBalance = wallet.getBalance() == null ? BigDecimal.ZERO : wallet.getBalance();
+
+
+        if (currentBalance.compareTo(amount) < 0) {
             return transactionService.createTransaction(
-                    wallet.getOwner(),
+                    wallet,
                     amount,
                     wallet.getBalance(),
                     wallet.getCurrency(),
@@ -81,11 +93,13 @@ public class WalletService {
             );
         }
 
-        wallet.setBalance(wallet.getBalance().subtract(amount));
+        BigDecimal newBalance = currentBalance.subtract(amount);
+        wallet.setBalance(newBalance);
+        wallet.setUpdatedOn(LocalDateTime.now());
         walletRepository.save(wallet);
 
         return transactionService.createTransaction(
-                wallet.getOwner(),
+                wallet,
                 amount,
                 wallet.getBalance(),
                 wallet.getCurrency(),
@@ -104,7 +118,7 @@ public class WalletService {
         return walletRepository.findByOwnerId(parentId);
     }
     public List<Transaction> getTransactionsByWalletId(UUID walletId) {
-        Wallet wallet = getById(walletId);
-        return transactionService.getAllTransactions(wallet.getOwner().getId());
+
+        return transactionService.getLatestTransactions(walletId);
     }
 }

@@ -1,7 +1,7 @@
 package app.transaction.service;
 
 import app.expetion.DomainExeption;
-import app.parent.model.Parent;
+import app.wallet.model.Wallet;
 import app.transaction.model.Transaction;
 import app.transaction.model.TransactionStatus;
 import app.transaction.model.TransactionType;
@@ -24,9 +24,9 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public Transaction createTransaction(Parent owner, BigDecimal amount, BigDecimal balanceLeft, Currency currency, TransactionType type, TransactionStatus status, String description, String failureReason) {
+    public Transaction createTransaction(Wallet wallet, BigDecimal amount, BigDecimal balanceLeft, Currency currency, TransactionType type, TransactionStatus status, String description, String failureReason) {
         Transaction transaction = Transaction.builder()
-                .wallet(owner.getWallet())
+                .wallet(wallet)
                 .amount(amount)
                 .currency(currency)
                 .balanceLeft(balanceLeft)
@@ -40,9 +40,8 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    public List<Transaction> getAllTransactions(UUID walletId) {
-        return transactionRepository.findAllByWalletId(walletId);
-
+    public List<Transaction> getLatestTransactions(UUID walletId) {
+        return transactionRepository.findTop5ByWallet_IdOrderByCreatedOnDesc(walletId);
     }
 
     public Transaction getTransactionById(UUID transactionId) {

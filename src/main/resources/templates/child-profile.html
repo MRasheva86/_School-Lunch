@@ -1,37 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit child</title>
-    <link rel="stylesheet" href="/css/register.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Child Profile</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div style="flex-shrink: 0;">
-    <img th:src="${child.gender == 'MALE' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
-         alt="Child Avatar"
-         style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #4682B4; background: #fff;"
-         onerror="this.src='https://via.placeholder.com/80/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
-</div>
 
-<div style="flex: 1;">
-    <h4 style="margin-bottom: 10px; color: #333;">
-        <span th:text="${child.firstName + ' ' + child.lastName}">Child Name</span>
-    </h4>
-    <p style="margin: 5px 0;"><strong>First Name:</strong> <span th:text="${child.firstName}">-</span></p>
-    <p style="margin: 5px 0;"><strong>Last Name:</strong> <span th:text="${child.lastName}">-</span></p>
-    <p style="margin: 5px 0;"><strong>Gender:</strong> <span th:text="${child.gender.getDisplayName()}">-</span></p>
-    <form class="form-group"
-          th:action="@{/children/{id}/child-profile(id=${child.id})}"
-          method="post"
-          th:object="${child}">
-        <input type="hidden" name="_method" value="put">
-        <label for="school">School</label>
-        <input type="text" id="school" placeholder="Child's School" th:field="*{school}">
-        <label for="grade">Grade</label>
-        <input type="text" id="grade" placeholder="Child's Grade" th:field="*{grade}">
-        <button type="submit" class="btn btn-primary">Update Child</button>
-    </form>
-</div>
+<aside class="sidebar">
+    <h1>Menu</h1>
+    <a href="/children" class="nav-item">My Kids</a>
+    <a href="/wallet" class="nav-item">Wallet</a>
+    <h1>Settings</h1>
+    <a href="/home/profile" class="nav-item">Edit Profile</a>
+    <a href="/logout" class="nav-item">Logout</a>
+</aside>
+
+<section class="main-section">
+    <div class="card profile-card">
+        <h3>✏️ Edit Child Profile</h3>
+        
+        <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 30px;">
+            <div style="flex-shrink: 0;">
+                <img th:src="${child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
+                     alt="Child Avatar"
+                     style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #4682B4; background: #fff;"
+                     onerror="this.src='https://via.placeholder.com/80/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
+            </div>
+
+            <div style="flex: 1;">
+                <h4 style="margin-bottom: 10px; color: #333;">
+                    <span th:text="${child.firstName + ' ' + child.lastName}">Child Name</span>
+                </h4>
+<!--                <p style="margin: 5px 0;"><strong>Gender:</strong> <span th:text="${child.gender.getDisplayName()}">-</span></p>-->
+            </div>
+        </div>
+
+        <form th:action="@{/children/{id}/child-profile(id=${child.id})}"
+              method="post"
+              th:object="${editChildRequest}"
+              style="display: flex; flex-direction: column; gap: 15px;">
+            <input type="hidden" name="_method" value="PUT">
+            
+            <div>
+                <label for="school" style="display: block; margin-bottom: 5px; font-weight: 500;">School:</label>
+                <input type="text" 
+                       id="school" 
+                       th:field="*{school}" 
+                       placeholder="Enter school name" 
+                       required
+                       style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <p th:if="${#fields.hasErrors('school')}" th:errors="*{school}" style="color: red; margin-top: 5px;"></p>
+            </div>
+            
+            <div>
+                <label for="grade" style="display: block; margin-bottom: 5px; font-weight: 500;">Grade:</label>
+                <input type="number" 
+                       id="grade" 
+                       th:field="*{grade}" 
+                       placeholder="Enter grade" 
+                       min="1" 
+                       max="12" 
+                       required
+                       style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <p th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}" style="color: red; margin-top: 5px;"></p>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button type="submit"
+                        class="action-btn add">
+                    Update Child
+                </button>
+                <a th:href="@{/children}"
+                   class="action-btn cancel">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
 
 </body>
 </html>

@@ -1,35 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit profile</title>
-  <link rel="stylesheet" href="/css/register.css">
+  <link rel="stylesheet" href="/css/home.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="edit-container">
-  <div class="edit-card">
-    <h2>Update Account</h2>
-    <p style="text-align: center; margin-bottom: 1.5rem; color: #666;">Update your personal info here ⤵️</p>
+<aside class="sidebar">
+    <h1>Menu</h1>
 
-<!--    <form class="form" th:action="@{/edit}" th:method="PATCH" th:object="${editRequest}">-->
+    <a href="/children" class="nav-item">My Kids</a>
+    <a href="/wallet" class="nav-item">Wallet</a>
 
+    <h1>Settings</h1>
 
-      <label for="password">Password</label>
-      <input type="password" placeholder="Password (8 characters)" id="password" >
-<!--      <p class="alert-warning" th:if="${#fields.hasErrors('password')}" rth:erors="*{password}">Error message</p>-->
+    <a href="/profile" class="nav-item">Edit Profile</a>
+    <a href="/logout" class="nav-item">Logout</a>
+</aside>
+<section class="main-section">
+    <div class="card profile-card">
+        <h3>✏️ Update Your Profile</h3>
 
-      <label for="email">Email</label>
-      <input type="email" placeholder="Email" id="email" >
-<!--      <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error message</p>-->
+            <div style="flex: 1;">
+                <h4 style="margin-bottom: 10px; color: #333;">
+                    <span th:text="${parent.getFirstName() + ' ' + parent.getLastName()}">Your Name</span>
+                </h4>
+                <p style="margin: 5px 0;"><strong>Username:</strong> <span th:text="${parent.getUsername()}">-</span></p>
+            </div>
 
-      <button type="submit" class="primary">Edit</button>
-<!--      <p class="form-already" style="text-align: center; margin-top: 1rem;">Already have an account? <a href="/login" style="color: #4682B4; text-decoration: none;">Login</a>!</p>-->
+        <form th:action="@{/home//{parentId}/profile(parentId=${parent.id})}"
+              method="post"
+              th:object="${editRequest}"
+              style="display: flex; flex-direction: column; gap: 15px;">
+            <input type="hidden" name="_method" value="put">
+
+            <div>
+                <label for="email" style="display: block; margin-bottom: 5px; font-weight: 500;">Email:</label>
+                <input type="text"
+                       id="email"
+                       th:field="*{email}"
+                       placeholder="Enter email address"
+                       required
+                       style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red; margin-top: 5px;"></p>
+            </div>
+
+            <div>
+                <label for="password" style="display: block; margin-bottom: 5px; font-weight: 500;">Password:</label>
+                <input type="number"
+                       id="password"
+                       th:field="*{password}"
+                       placeholder="Enter your password"
+                       min="8"
+                       max="8"
+                       required
+                       style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red; margin-top: 5px;"></p>
+            </div>
+            <div>
+                <label for="role" style="display: block; margin-bottom: 5px; font-weight: 500;">Role:</label>
+                <input type="text"
+                       id="role"
+                       th:field="*{role}"
+                       placeholder="Select role"
+                       required
+                       style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" style="color: red; margin-top: 5px;"></p>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button type="submit"
+                        class="action-btn add">
+                    Update Profile
+                </button>
+                <a th:href="@{/home}"
+                   class="action-btn cancel">
+                    Cancel
+                </a>
+            </div>
     </form>
-  </div>
-</div>
-<th:block th:insert="fragments/my-fragments :: my-website-footer"></th:block>
+    </div>
+
+</section>
+<!--<th:block th:insert="fragments/my-fragments :: my-website-footer"></th:block>-->
 </body>
 </html>

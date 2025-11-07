@@ -33,7 +33,7 @@ public class TransactionController {
     public ModelAndView getTransactions(@AuthenticationPrincipal UserData user){
         Parent parent = parentService.getById(user.getUserId());
         Wallet wallet = parent.getWallet();
-        List<Transaction> transactions = transactionService.getAllTransactions(wallet.getId());
+        List<Transaction> transactions = transactionService.getLatestTransactions(wallet.getId());
         ModelAndView modelAndView = new ModelAndView("/transactions");
         modelAndView.addObject("transactions", transactions);
         return modelAndView;
