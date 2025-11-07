@@ -1,5 +1,8 @@
 package app.parent.model;
 
+import lombok.Getter;
+
+@Getter
 public enum ParentRole {
     ROLE_USER ("User"),
     ROLE_ADMIN ("Admin");
@@ -10,7 +13,4 @@ public enum ParentRole {
         this.displayName = displayName;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
 }

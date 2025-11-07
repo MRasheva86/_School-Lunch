@@ -1,16 +1,16 @@
 package app.child.model;
 
+import lombok.Getter;
+
+@Getter
 public enum ChildGender {
     MALE ("Boy"),
     FEMALE ("Girl");
 
-    private String displayName;
+    private final String displayName;
 
     ChildGender(String displayName) {
         this.displayName = displayName;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
 }
