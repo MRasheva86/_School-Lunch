@@ -19,7 +19,7 @@
 
     <h1>Settings</h1>
 
-    <a href="/profile" class="nav-item">Edit Profile</a>
+    <a href="/home/profile" class="nav-item">Edit Profile</a>
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 
@@ -32,7 +32,7 @@
             <p><strong>Username:</strong> <span th:text="${parent.getUsername()}" id="username">johndoe</span></p>
             <p><strong>Email:</strong> <span th:text="${parent.getEmail()}" id="email">john@example.com</span></p>
             <p><strong>Balance:</strong> <span th:text="${wallet.getBalance() + ' ' + wallet.getCurrency()}">100</span></p>
-            <p><strong>Role:</strong> <span th:text="${parent.role.getDisplayName()}">user</span></p>
+            <p><strong>Role:</strong> <span th:text="${parent.role != null ? parent.role.getDisplayName() : 'N/A'}">user</span></p>
         </div>
     </section>
 

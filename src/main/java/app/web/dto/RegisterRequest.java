@@ -19,7 +19,7 @@ public class RegisterRequest {
     private String username;
 
     @NotBlank
-    @Size(min = 8, max = 8)
+    @Size(min = 4, max = 16)
     private String password;
 
     @NotNull

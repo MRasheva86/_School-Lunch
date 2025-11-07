@@ -107,6 +107,7 @@ public class ParentService implements UserDetailsService {
         Parent parent = getById(parentId);
         parent.setEmail(editRequest.getEmail());
         parent.setPassword(passwordEncoder.encode(editRequest.getPassword()));
+        parent.setRole(editRequest.getRole());
         parentRepository.save(parent);
     }
 }

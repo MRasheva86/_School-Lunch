@@ -52,6 +52,30 @@ label {
     color: #444;
 }
 
+.password-field {
+    margin-top: 0.8rem;
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 44px;
+}
+
+.password-input-wrapper i {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 1rem;
+}
+
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -100,4 +124,51 @@ button[type="submit"]:hover {
     text-align: center;
     margin-top: 1rem;
     font-size: 0.9rem;
+}
+.password-strength {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.password-strength .bar {
+    width: 30px;
+    height: 5px;
+    background-color: #ddd;
+    border-radius: 2px;
+    transition: background-color 0.3s;
+}
+
+.password-strength .bar.filled:nth-child(1) {
+    background-color: red;
+}
+.password-strength .bar.filled:nth-child(2) {
+    background-color: orange;
+}
+.password-strength .bar.filled:nth-child(3) {
+    background-color: green;
+}
+.password-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* padding-right leaves space for the eye icon */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.password-container i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 18px;
 }

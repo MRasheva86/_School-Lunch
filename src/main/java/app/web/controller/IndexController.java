@@ -53,6 +53,9 @@ public class IndexController {
             Parent parent = parentService.findByUsername(username);
             modelAndView.addObject("parent", parent);
             Wallet wallet = walletService.getWalletByParentId(parent.getId());
+            if (wallet == null) {
+                wallet = walletService.createWallet(parent);
+            }
             modelAndView.addObject("wallet", wallet);
         }
 
@@ -67,6 +70,11 @@ public class IndexController {
         modelAndView.addObject("registerRequest", new RegisterRequest());
 
         return modelAndView;
+    }
+
+    @GetMapping("/profile")
+    public String redirectProfile() {
+        return "redirect:/home/profile";
     }
 
     @PostMapping("/register")

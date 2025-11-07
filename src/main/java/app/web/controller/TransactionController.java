@@ -6,6 +6,7 @@ import app.security.UserData;
 import app.transaction.model.Transaction;
 import app.transaction.service.TransactionService;
 import app.wallet.model.Wallet;
+import app.wallet.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -20,19 +21,24 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/transactions")
 public class TransactionController {
-    private  final TransactionService transactionService;
+    private final TransactionService transactionService;
     private final ParentService parentService;
+    private final WalletService walletService;
 
     @Autowired
-    public TransactionController(TransactionService transactionService, ParentService parentService) {
+    public TransactionController(TransactionService transactionService, ParentService parentService, WalletService walletService) {
         this.transactionService = transactionService;
         this.parentService = parentService;
+        this.walletService = walletService;
     }
 
     @GetMapping
     public ModelAndView getTransactions(@AuthenticationPrincipal UserData user){
         Parent parent = parentService.getById(user.getUserId());
         Wallet wallet = parent.getWallet();
+        if (wallet == null) {
+            wallet = walletService.createWallet(parent);
+        }
         List<Transaction> transactions = transactionService.getLatestTransactions(wallet.getId());
         ModelAndView modelAndView = new ModelAndView("/transactions");
         modelAndView.addObject("transactions", transactions);
