@@ -48,4 +48,9 @@ public class TransactionService {
         return transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new DomainExeption("Transaction with id [%s] not found.".formatted(transactionId)));
     }
+
+    public void deleteAllByWalletId(UUID walletId) {
+
+        transactionRepository.deleteAllByWallet_Id(walletId);
+    }
 }

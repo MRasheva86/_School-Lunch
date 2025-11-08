@@ -54,9 +54,6 @@ public class ChildController {
     public String deleteChild(@AuthenticationPrincipal UserData user, @PathVariable UUID childId) {
         Parent parent = parentService.getById(user.getUserId());
         Child child = childService.getChildById(childId);
-        if (!child.getParent().getId().equals(parent.getId())) {
-            throw new IllegalArgumentException("You can only delete your own child records.");
-        }
         childService.deleteChild(childId);
         return "redirect:/children";
     }

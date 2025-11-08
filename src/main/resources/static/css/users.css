@@ -8,19 +8,18 @@ body {
 /* Section wrapper */
 .users {
     margin-left: calc(300px + 2mm); /* Sidebar width + 2mm gap */
-    margin-right: 2rem; /* Gap on right */
-    padding-top: 2rem;
 }
 
 /* Table container */
 .table-wrapper {
-    width: 100%;
+    width: 80%;
     overflow-x: auto;
 }
 
 /* Table core */
 .users-table {
-    width: 100%;
+    margin-top: 2rem;
+    width: 95%;
     border-collapse: collapse;
     background-color: #fdf8f3;
     border-radius: 12px;
@@ -37,33 +36,22 @@ body {
 
 /* Banner header: "Users of School Lunch" */
 .users-table .header-main th {
-    background: linear-gradient(90deg, #1e3a5f, #2e577a);
+    background-color: #1b314b;
     color: #fff;
     font-size: 2rem;
     font-weight: 800;
-    padding: 1.2rem;
+    padding: 12px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     border-bottom: 3px solid #1b314b;
 }
 
-/* Sub header: "Users list" */
-.users-table .header-sub th {
-    background: #3b6a9a;
-    color: #f5f5f5;
-    font-size: 1.4rem;
-    font-weight: 600;
-    padding: 0.8rem;
-    text-align: center;
-    border-bottom: 2px solid #274760;
-}
-
 /* Column headers */
 .users-table .column-header th {
     background-color: #2e577a;
     color: #fff;
-    padding: 0.75rem 1rem;
+    padding: 12px;
     text-align: left;
     font-weight: 600;
     font-size: 1.05rem;
@@ -91,10 +79,6 @@ body {
     transition: background 0.3s ease;
 }
 
-.action-btn.remove:hover {
-    background-color: #d9534f;
-}
-
 /* Empty message */
 .empty-message {
     text-align: center;
@@ -102,6 +86,172 @@ body {
     color: #555;
     padding: 1.5rem;
 }
+.role-select {
+    padding: 4px 6px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    margin-right: 6px;
+    font-size: 1rem;
+}
+
+.inline-form {
+    display: inline-block;
+    margin: 4px 0;
+}
+/* Toast Message */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    z-index: 1000;
+    border-radius: 6px;
+    padding: 12px 20px;
+    color: white;
+    font-weight: 500;
+    animation: fadeIn 0.5s, fadeOut 0.5s 3.5s forwards;
+}
+
+.success-toast {
+    background-color: #4CAF50;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+.users-table th {
+    background-color: #4682B4;
+    color: white;
+    padding: 14px;
+    text-align: left;
+}
+
+.users-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.users-table tr:hover {
+    background-color: #f4f9ff;
+}
+
+.empty-message {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+/* Role dropdown + action buttons inline */
+.inline-form {
+    display: inline-block;
+}
+
+.role-select {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+.role-select:hover {
+    border-color: #4682B4;
+    box-shadow: 0 0 5px rgba(70,130,180,0.4);
+}
+
+.action-btn.remove {
+    background-color: #f87682;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.action-btn.remove:hover {
+    background-color: #d24a4a;
+}
+/* Confirmation Modal */
+.confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.confirm-content {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+}
+
+.confirm-content h3 {
+    margin-top: 0;
+    color: #d9534f;
+    font-size: 1.4rem;
+}
+
+.confirm-content p {
+    font-size: 1rem;
+    margin: 15px 0 25px 0;
+    color: #333;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.confirm-btn {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.confirm-btn.yes {
+    background-color: #d9534f;
+    color: white;
+}
+
+.confirm-btn.yes:hover {
+    background-color: #c9302c;
+}
+
+.confirm-btn.no {
+    background-color: #ccc;
+    color: #333;
+}
+
+.confirm-btn.no:hover {
+    background-color: #b3b3b3;
+}
+.error-toast {
+    background-color: #d9534f;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
 
 /* Responsive behavior */
 @media (max-width: 1000px) {

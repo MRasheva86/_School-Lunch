@@ -21,6 +21,7 @@
     <h1>Settings</h1>
 
     <a href="/home/profile" class="nav-item">Edit Profile</a>
+    <a href="/home/users" class="nav-item" th:if="${parent.role.getDisplayName() == 'Admin'}">Users</a>
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 <section class="main-section">
@@ -104,7 +105,7 @@
         const successAlert = document.querySelector(".alert-success");
         if (successAlert) {
             setTimeout(() => {
-                successAlert.style.transition = "opacity 0.5s ease";
+                successAlert.style.transition = "opacity 0.3s ease";
                 successAlert.style.opacity = "0";
 
                 setTimeout(() => {

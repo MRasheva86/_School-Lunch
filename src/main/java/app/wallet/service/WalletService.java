@@ -121,4 +121,10 @@ public class WalletService {
 
         return transactionService.getLatestTransactions(walletId);
     }
+
+    @Transactional
+    public void deleteWallet(UUID id) {
+        transactionService.deleteAllByWalletId(id);
+        walletRepository.deleteById(id);
+    }
 }

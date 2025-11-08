@@ -13,4 +13,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
 
     List<Transaction> findTop5ByWallet_IdOrderByCreatedOnDesc(UUID walletId);
 
+    void deleteAllByWallet_Id(UUID walletId);
+
 }

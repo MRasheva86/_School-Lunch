@@ -74,10 +74,23 @@ public class ParentController {
 
         return modelAndView;
     }
+
     @DeleteMapping("/users/{userId}")
-   // @PreAuthorize("hasRole('ADMIN')")
-    public String deleteUser(@AuthenticationPrincipal UserData user, @PathVariable UUID userId) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public String deleteUser(@PathVariable UUID userId, RedirectAttributes redirectAttributes) {
         parentService.deleteParent(userId);
+        redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
+
+        return "redirect:/home/users";
+    }
+
+    @PatchMapping("/users/{userId}/role")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String updateUserRole(@PathVariable UUID userId,
+                                 @RequestParam("role") String newRole,
+                                 RedirectAttributes redirectAttributes) {
+        parentService.updateUserRole(userId, newRole);
+        redirectAttributes.addFlashAttribute("successMessage", "User role updated successfully!");
         return "redirect:/home/users";
     }
 

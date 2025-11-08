@@ -8,11 +8,14 @@ import app.parent.model.ParentRole;
 import app.parent.repository.ParentRepository;
 import app.security.UserData;
 import app.wallet.model.Wallet;
+import app.wallet.repository.WalletRepository;
 import app.wallet.service.WalletService;
 import app.web.dto.EditRequest;
 import app.web.dto.RegisterRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +31,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class ParentService implements UserDetailsService {
+    private final WalletRepository walletRepository;
     private RegisterRequest registerRequest;
 
     @Override
@@ -43,11 +47,12 @@ public class ParentService implements UserDetailsService {
     private final WalletService walletService;
 
     @Autowired
-    public ParentService(ParentRepository parentRepository, PasswordEncoder passwordEncoder, ChildRepository childRepository, WalletService walletService) {
+    public ParentService(ParentRepository parentRepository, PasswordEncoder passwordEncoder, ChildRepository childRepository, WalletService walletService, WalletRepository walletRepository) {
         this.parentRepository = parentRepository;
         this.passwordEncoder = passwordEncoder;
         this.childRepository = childRepository;
         this.walletService = walletService;
+        this.walletRepository = walletRepository;
     }
 
     @Transactional
@@ -99,11 +104,30 @@ public class ParentService implements UserDetailsService {
         parentRepository.save(parent);
     }
 
+    @Cacheable("users")
     public List<Parent> getAllParents() {
         return parentRepository.findAll();
     }
 
+    @Transactional
+    @CacheEvict(value = "users", allEntries = true)
     public void deleteParent(UUID userId) {
+        Wallet wallet = walletService.getWalletByParentId(userId);
+        if (wallet != null) {
+            walletService.deleteWallet(wallet.getId());
+        }
         parentRepository.deleteById(userId);
+    }
+
+    @Transactional
+    @CacheEvict(value = "users", allEntries = true)
+    public void updateUserRole(UUID userId, String newRole) {
+
+        Parent parent = parentRepository.findById(userId)
+                .orElseThrow(() -> new DomainExeption("User not found"));
+
+        parent.setRole(ParentRole.valueOf(newRole));
+
+        parentRepository.save(parent);
     }
 }

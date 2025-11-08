@@ -1,5 +1,6 @@
 package app.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,7 +18,9 @@ public class WebConfiguration implements WebMvcConfigurer {
 
        http
                .authorizeHttpRequests(matchers -> matchers
+                       .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                        .requestMatchers("/css/**", "/js/**", "/images/**", "/", "/register", "/login").permitAll()
+                       .requestMatchers("/users").hasRole("ADMIN")
                           .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
