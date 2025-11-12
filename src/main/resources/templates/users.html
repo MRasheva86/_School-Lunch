@@ -21,21 +21,12 @@
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 <section class="users" th:if="${users != null}">
-
-    <!-- Success toast -->
-    <div th:if="${successMessage != null}" class="toast success-toast" id="toast">
-        <p th:text="${successMessage}"></p>
-    </div>
-
-    <!-- Error toast (optional) -->
-    <div th:if="${errorMessage != null}" class="toast error-toast" id="toastError">
-        <p th:text="${errorMessage}"></p>
-    </div>
-
-
+<div class="table-wrapper">
     <table class="users-table">
         <thead>
-        <tr class="header-main"><th colspan="8">Users of School Lunch</th></tr>
+        <tr class="header-main">
+            <th colspan="8">Users of School Lunch</th>
+        </tr>
         <tr>
             <th>ID</th>
             <th>Register Date</th>
@@ -57,7 +48,7 @@
             <td th:text="${u.lastName}">Last name</td>
             <td th:text="${u.username}">Username</td>
             <td th:text="${u.email}">Email</td>
-            <td th:text="${u.role.getDisplayName()}">Has Role</td>
+            <td th:text="${u.role.displayName}">Has Role</td>
 
             <!-- Role & Actions -->
             <td>
@@ -67,8 +58,8 @@
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 <!--                    <input type="hidden" name="_method" value="patch">-->
                     <select name="role" class="role-select" onchange="this.form.submit()">
-                        <option value="ROLE_USER" th:selected="${u.role.getDisplayName() == 'User'}">User</option>
-                        <option value="ROLE_ADMIN" th:selected="${u.role.getDisplayName() == 'Admin'}">Admin</option>
+                        <option value="ROLE_USER" th:selected="${u.role == T(app.parent.model.ParentRole).ROLE_USER}">User</option>
+                        <option value="ROLE_ADMIN" th:selected="${u.role == T(app.parent.model.ParentRole).ROLE_ADMIN}">Admin</option>
                     </select>
                 </form>
             </td>
@@ -93,6 +84,7 @@
         </tr>
         </tbody>
     </table>
+</div>
 </section>
 <script>
     document.addEventListener("DOMContentLoaded", () => {

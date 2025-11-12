@@ -86,4 +86,8 @@ public class ChildController {
         return new ModelAndView("redirect:/children");
     }
 
+//    @GetMapping("/{childId}/lunches(childId=${child.id})")
+//    public ModelAndView getLunchesPage() {
+//        return new ModelAndView("lunches");
+//    }
 }

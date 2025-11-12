@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/kids/{kidId}/lunches")
+@RequestMapping("/children/{childId}/lunches")
 public class LunchController {
 
     private final LunchService lunchService;
@@ -32,19 +32,19 @@ public class LunchController {
     }
 
     @GetMapping()
-    public ModelAndView lunchesPage(@PathVariable("kidId")UUID kidId, @AuthenticationPrincipal UserData user) {
+    public ModelAndView lunchesPage(@PathVariable("childId")UUID childId, @AuthenticationPrincipal UserData user) {
         ModelAndView modelAndView = new ModelAndView("lunches");
         Parent parent = parentService.getById(user.getUserId());
         if (parent == null) {
             modelAndView.setViewName("login");
         }
         Optional<Child> child = parent.getChildren() == null ? Optional.empty()
-                : parent.getChildren().stream().filter(c -> c.getId().equals(kidId)).findFirst();
+                : parent.getChildren().stream().filter(c -> c.getId().equals(childId)).findFirst();
         if (child.isEmpty()) {
              modelAndView.setViewName("children");
         }
 
-        List<Lunch> lunches = lunchService.listByChildId(kidId);
+        List<Lunch> lunches = lunchService.listByChildId(childId);
         modelAndView.addObject("parent", parent);
         modelAndView.addObject("child", child.get());
         modelAndView.addObject("lunchRequest", new LunchRequest());
@@ -54,19 +54,19 @@ public class LunchController {
     }
 
     @PostMapping
-    public String addLunch(@PathVariable("kidId")UUID kidId, LunchRequest lunchRequest, @AuthenticationPrincipal UserData user) {
+    public String addLunch(@PathVariable("childId")UUID childId, LunchRequest lunchRequest, @AuthenticationPrincipal UserData user) {
         Parent parent = parentService.getById(user.getUserId());
         if (parent == null) {
             return "redirect:/login";
         }
         Optional<Child> child = parent.getChildren() == null ? Optional.empty()
-                : parent.getChildren().stream().filter(c -> c.getId().equals(kidId)).findFirst();
+                : parent.getChildren().stream().filter(c -> c.getId().equals(childId)).findFirst();
         if (child.isEmpty()) {
-             return "redirect:/kids";
+             return "redirect:/children";
         }
 
-        lunchService.addLunch(kidId, lunchRequest);
-        return "redirect:/kids/" + kidId + "/lunches";
+        lunchService.addLunch(childId, lunchRequest);
+        return "redirect:/children/" + childId + "/lunches";
     }
 
     // Additional methods for handling order submissions can be added here

@@ -70,7 +70,7 @@ public class ParentService implements UserDetailsService {
                 .email(registerRequest.getEmail())
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())
-                .role(registerRequest.getRole())
+                .role(ParentRole.ROLE_USER)
                 .isActive(true)
                 .createdOn(LocalDateTime.now())
                 .updatedOn(LocalDateTime.now())

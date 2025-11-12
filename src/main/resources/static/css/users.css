@@ -7,19 +7,20 @@ body {
 
 /* Section wrapper */
 .users {
-    margin-left: calc(300px + 2mm); /* Sidebar width + 2mm gap */
+    margin-left: calc(300px + 2mm);
+    margin-right: 2rem;/* Sidebar width + 2mm gap */
 }
 
 /* Table container */
 .table-wrapper {
-    width: 80%;
+    width: calc(100% - 2mm);
     overflow-x: auto;
 }
 
 /* Table core */
 .users-table {
     margin-top: 2rem;
-    width: 95%;
+    width: 100%;
     border-collapse: collapse;
     background-color: #fdf8f3;
     border-radius: 12px;

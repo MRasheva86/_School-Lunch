@@ -77,8 +77,9 @@ public class ParentController {
 
     @DeleteMapping("/users/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public String deleteUser(@PathVariable UUID userId, RedirectAttributes redirectAttributes) {
+    public String deleteUser(@AuthenticationPrincipal UserData user, @PathVariable UUID userId, RedirectAttributes redirectAttributes) {
         parentService.deleteParent(userId);
+        redirectAttributes.addFlashAttribute("toastType", "error-toast");
         redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
 
         return "redirect:/home/users";
