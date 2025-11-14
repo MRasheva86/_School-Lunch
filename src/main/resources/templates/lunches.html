@@ -52,7 +52,7 @@
 
         <section>
             <h2>Add lunch</h2>
-            <form th:action="@{/children/{childId}/lunches(childId=${child.id})}" th:method="post" th:object="${lunchRequest}">
+            <form th:action="@{/children/lunches/{childId}(childId=${child.id})}" th:method="post" th:object="${lunchRequest}">
                 <label>Day of the week</label>
                 <select  th:field="*{day}">
                     <option th:each="day : ${T(app.lunch.model.WeekDay).values()}" th:value="${day}" th:text="${day}">abv</option>
@@ -65,7 +65,7 @@
         </section>
     </div>
 
-</form>
+
 </div>
 </body>
 </html>
