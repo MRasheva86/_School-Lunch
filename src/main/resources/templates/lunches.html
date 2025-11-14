@@ -42,24 +42,36 @@
         <section class="main-section">
             <table>
                 <thead>
-                <tr><th>Created</th><th>Order</th><th>Status</th><th></th></tr>
+                <tr>
+                    <th>Created</th>
+                    <th>Day</th>
+                    <th>Meal</th>
+                    <th>Qty</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr th:each="l : ${lunches}">
                     <td th:text="${l.createdOn}">2025-01-01</td>
-                    <td th:text="${l.order}">Lunch order</td>
+                    <td th:text="${l.dayOfWeek}">MONDAY</td>
+                    <td th:text="${l.meal}">Lunch order</td>
+                    <td th:text="${l.quantity}">1</td>
                     <td th:text="${l.status}">PAID</td>
+                    <td th:text="${l.total}">0.00</td>
                     <td>
                         <form th:action="@{/children/{childId}/lunches/{lunchId}/delete(childId=${child.id}, lunchId=${l.id})}"
                               method="post" style="display:inline;">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <input type="hidden" name="_method" value="delete"/>
                             <button type="submit" class="action-btn remove"
                                     onclick="return confirm('Remove this lunch order?');">Delete</button>
                         </form>
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(lunches)}">
-                    <td colspan="4">No lunches recorded</td>
+                    <td colspan="7">No lunches recorded</td>
                 </tr>
                 </tbody>
             </table>
@@ -74,23 +86,16 @@
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <label>Day of the week</label>
                 <select  th:field="*{dayOfWeek}">
-                    <option value="MONDAY">MONDAY</option>
-                    <option value="TUESDAY">TUESDAY</option>
-                    <option value="WEDNESDAY">WEDNESDAY</option>
-                    <option value="THURSDAY">THURSDAY</option>
-                    <option value="FRIDAY">FRIDAY</option>
+                    <option th:each="day : ${dayOptions}"
+                            th:value="${day.name()}"
+                            th:text="${#strings.capitalize(day.name().toLowerCase())}"></option>
                 </select>
-                <div class="form-group">
-                    <label for="meal">Meal</label>
-                    <select id="meal" name="meal" class="form-control" required>
-                        <option value="" disabled selected>Select meal</option>
-                        <th:block th:each="meal : ${T(app.lunch.model.Meal).values()}">
-                            <option th:value="${meal.name()}"
-                                    th:text="${#strings.capitalize(#strings.toLowerCase(meal).replace('_', ' '))}"></option>
-                        </th:block>
-                    </select>
-
-                </div>
+                <label>Meal</label>
+                <select th:field="*{meal}">
+                    <option th:each="meal : ${mealOptions}"
+                            th:value="${meal.name()}"
+                            th:text="${meal.displayName}"></option>
+                </select>
                 <label>Quantity</label>
                 <input type="number" min="1" th:field="*{quantity}" />
                 <p class="error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Invalid quantity</p>

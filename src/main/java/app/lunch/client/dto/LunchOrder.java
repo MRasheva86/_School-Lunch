@@ -2,13 +2,20 @@ package app.lunch.client.dto;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.UUID;
 
 @Data
 public class LunchOrder {
-    private String order;
-
-    private LocalDateTime createdOn;
-
+    private UUID id;
+    private UUID parentId;
+    private UUID childId;
+    private String meal;
+    private Integer quantity;
+    private String dayOfWeek;
+    private BigDecimal unitPrice;
+    private BigDecimal total;
     private String status;
+    private Instant createdOn;
 }
