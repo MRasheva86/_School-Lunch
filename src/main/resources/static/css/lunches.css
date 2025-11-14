@@ -1,0 +1,149 @@
+body {
+    background-image: url("https://img.freepik.com/free-photo/indian-food-circular-frame-with-copy-space_23-2148747658.jpg?semt=ais_hybrid&w=740&q=80");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Georgia", serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar (matches main app) */
+.sidebar {
+    width: 220px;
+    background: #2e577a;
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1.5rem;
+}
+
+.sidebar h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: navajowhite;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.nav-item {
+    font-size: 1.5rem;
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 0.4rem 0;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.nav-item:hover, .nav-item.active {
+    background: #3e4c61;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 260px;
+    padding: 2rem;
+}
+
+/* Card layout */
+.card {
+    background: antiquewhite;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Title inside card */
+.card-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1b314b;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead th {
+    background-color: #2e577a;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+tbody td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    color: #333;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Form styling */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #f8f4ef;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #1b314b;
+}
+
+select {
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* Button */
+.action-btn {
+    display: inline-block;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background-color: #4682B4;
+    margin-top: 1.5rem;
+}
+
+.action-btn.add {
+    background-color: #4682B4;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+}

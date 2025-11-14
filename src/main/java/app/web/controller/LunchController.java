@@ -66,7 +66,7 @@ public class LunchController {
         }
 
         lunchService.addLunch(childId, lunchRequest);
-        return "redirect:/children/" + childId + "/lunches";
+        return "redirect:/children/{childId}/lunches" ;
     }
 
     // Additional methods for handling order submissions can be added here

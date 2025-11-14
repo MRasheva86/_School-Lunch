@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Order page</title>
+    <link rel="stylesheet" href="/css/lunches.css">
     <style>
         body {font-family: system-ui, sans-serif; margin: 2rem;}
         form {max-width: 500px; margin: 0 auto; background: #f9f9f9; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
@@ -15,11 +16,20 @@
     </style>
 </head>
 <body>
-<h1>Create an Order</h1>
-<h1 th:text="'Lunches for ' + ${child.firstName} ">Kid Name</h1>
+<aside class="sidebar">
+    <a href="/home" class="nav-item"><h1>Menu</h1></a>
+    <a href="/children" class="nav-item">My Kids</a>
+    <a href="/wallet" class="nav-item">Wallet</a>
+    <h1>Settings</h1>
+    <a href="/home/profile" class="nav-item">Edit Profile</a>
+    <a href="/home/users" class="nav-item" th:if="${parent.role.getDisplayName() == 'Admin'}">Users</a>
+    <a href="/logout" class="nav-item">Logout</a>
+</aside>
+<div class="main-content">
+<div class = "card">
+    <h1 class="card-title" th:text="'🍽️ Lunches for ' + ${child.firstName} ">Child Name</h1>
 
-<section>
-    <h2>All lunches</h2>
+<section class="main-section">
     <table>
         <thead>
         <tr><th>Date</th><th>Price</th><th>Description</th></tr>
@@ -36,12 +46,13 @@
         </tbody>
     </table>
 </section>
+</div>
 
     <div class="container">
 
         <section>
             <h2>Add lunch</h2>
-            <form th:action="@{/kids/{kidId}/lunches(kidId=${child.id})}" th:method="post" th:object="${lunchRequest}">
+            <form th:action="@{/children/{childId}/lunches(childId=${child.id})}" th:method="post" th:object="${lunchRequest}">
                 <label>Day of the week</label>
                 <select  th:field="*{day}">
                     <option th:each="day : ${T(app.lunch.model.WeekDay).values()}" th:value="${day}" th:text="${day}">abv</option>
@@ -55,5 +66,6 @@
     </div>
 
 </form>
+</div>
 </body>
 </html>
