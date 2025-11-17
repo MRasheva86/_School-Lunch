@@ -13,6 +13,8 @@ public class LunchOrderRequest {
 
     private UUID childId;
 
+    private UUID walletId;
+
     private String meal;
 
     private int quantity;

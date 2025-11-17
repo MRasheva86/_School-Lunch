@@ -10,6 +10,7 @@ import java.util.UUID;
 public class LunchOrder {
     private UUID id;
     private UUID parentId;
+    private UUID walletId;
     private UUID childId;
     private String meal;
     private Integer quantity;

@@ -44,7 +44,7 @@
                 <thead>
                 <tr>
                     <th>Created</th>
-                    <th>Day</th>
+                    <th>Week day</th>
                     <th>Meal</th>
                     <th>Qty</th>
                     <th>Status</th>
@@ -55,13 +55,13 @@
                 <tbody>
                 <tr th:each="l : ${lunches}">
                     <td th:text="${l.createdOn}">2025-01-01</td>
-                    <td th:text="${l.dayOfWeek}">MONDAY</td>
-                    <td th:text="${l.meal}">Lunch order</td>
+                    <td th:text="${l.dayOfWeek != null ? #strings.capitalize(#strings.toLowerCase(l.dayOfWeek)) : 'N/A'}">Monday</td>
+                    <td th:text="${T(app.lunch.client.dto.MealOption).valueOf(l.meal).displayName}">Lunch order</td>
                     <td th:text="${l.quantity}">1</td>
                     <td th:text="${l.status}">PAID</td>
                     <td th:text="${l.total}">0.00</td>
                     <td>
-                        <form th:action="@{/children/{childId}/lunches/{lunchId}/delete(childId=${child.id}, lunchId=${l.id})}"
+                        <form th:action="@{/children/{childId}/lunches/{lunchId}(childId=${child.id}, lunchId=${l.id})}"
                               method="post" style="display:inline;">
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             <input type="hidden" name="_method" value="delete"/>
@@ -85,7 +85,7 @@
             <form th:action="@{/children/{childId}/lunches(childId=${child.id})}" th:method="post" th:object="${lunchRequest}">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <label>Day of the week</label>
-                <select  th:field="*{dayOfWeek}">
+                <select th:field="*{dayOfWeek}">
                     <option th:each="day : ${dayOptions}"
                             th:value="${day.name()}"
                             th:text="${#strings.capitalize(day.name().toLowerCase())}"></option>
