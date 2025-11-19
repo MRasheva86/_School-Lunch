@@ -43,12 +43,12 @@
         <tbody>
         <tr th:each="u : ${users}">
             <td th:text="${u.id}">ID</td>
-            <td th:text="${#temporals.format(u.createdOn, 'dd-MM-yyyy HH:mm')}">Registered on</td>
+            <td th:text="${u.createdOn != null ? #temporals.format(u.createdOn, 'dd-MM-yyyy HH:mm') : 'N/A'}">Registered on</td>
             <td th:text="${u.firstName}">First name</td>
             <td th:text="${u.lastName}">Last name</td>
             <td th:text="${u.username}">Username</td>
             <td th:text="${u.email}">Email</td>
-            <td th:text="${u.role.displayName}">Has Role</td>
+            <td th:text="${u.role != null ? u.role.displayName : 'ROLE_USER'}">Has Role</td>
 
             <!-- Role & Actions -->
             <td>
@@ -56,10 +56,12 @@
                       th:action="@{/home/users/{userId}/role(userId=${u.id})}"
                       th:method="PATCH" class="inline-form">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-<!--                    <input type="hidden" name="_method" value="patch">-->
+                    <input type="hidden" name="_method" value="patch">
                     <select name="role" class="role-select" onchange="this.form.submit()">
-                        <option value="ROLE_USER" th:selected="${u.role == T(app.parent.model.ParentRole).ROLE_USER}">User</option>
-                        <option value="ROLE_ADMIN" th:selected="${u.role == T(app.parent.model.ParentRole).ROLE_ADMIN}">Admin</option>
+                        <option value="ROLE_USER" 
+                                th:selected="${u.role != null and u.role.name() == 'ROLE_USER'}">User</option>
+                        <option value="ROLE_ADMIN" 
+                                th:selected="${u.role != null and u.role.name() == 'ROLE_ADMIN'}">Admin</option>
                     </select>
                 </form>
             </td>
@@ -67,9 +69,9 @@
             <td>
                 <form
                       th:action="@{/home/users/{userId}(userId=${u.id})}"
-                      th:method="DELETE" class="inline-form delete-form">
+                      th:method="POST" class="inline-form delete-form">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-<!--                    <input type="hidden" name="_method" value="delete">-->
+                    <input type="hidden" name="_method" value="delete">
                     <button type="button"
                             class="action-btn remove"
                             onclick="confirmDelete(this)" style="text-align: center">

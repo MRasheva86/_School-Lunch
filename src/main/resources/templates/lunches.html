@@ -85,7 +85,8 @@
             <form th:action="@{/children/{childId}/lunches(childId=${child.id})}" th:method="post" th:object="${lunchRequest}">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <label>Day of the week</label>
-                <select th:field="*{dayOfWeek}">
+                <select th:field="*{dayOfWeek}" th:disabled="${#lists.isEmpty(dayOptions)}">
+                    <option th:if="${#lists.isEmpty(dayOptions)}" value="" disabled>No available days</option>
                     <option th:each="day : ${dayOptions}"
                             th:value="${day.name()}"
                             th:text="${#strings.capitalize(day.name().toLowerCase())}"></option>
@@ -97,9 +98,9 @@
                             th:text="${meal.displayName}"></option>
                 </select>
                 <label>Quantity</label>
-                <input type="number" min="1" th:field="*{quantity}" />
+                <input type="number" min="1" th:field="*{quantity}" th:disabled="${#lists.isEmpty(dayOptions)}" />
                 <p class="error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Invalid quantity</p>
-                <button type="submit">Add Lunch</button>
+                <button type="submit" th:disabled="${#lists.isEmpty(dayOptions)}">Add Lunch</button>
             </form>
         </section>
     </div>

@@ -64,10 +64,33 @@
                 </tr>
                 </thead>
                 <tbody id="transactionBody">
-                <tr th:each="t : ${transactions}">
-                    <td th:text="${#temporals.format(t.createdOn, 'dd-MM-yyyy HH:mm')}">12-10-2025</td>
-                    <td th:text="${t.description}">Deposit</td>
-                    <td th:text="${t.amount + ' ' + p.wallet.currency}">10.00 EUR</td>
+                <tr th:each="td : ${transactions}">
+                    <td th:text="${#temporals.format(td.transaction.createdOn, 'dd-MM-yyyy HH:mm')}">12-10-2025</td>
+                    <td>
+                        <!-- Show child image and name for lunch-related transactions -->
+                        <div th:if="${td.isLunchRelated and td.child != null}" style="display: flex; align-items: center; gap: 10px;">
+                            <img th:src="${td.child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
+                                 th:alt="${td.child.firstName}"
+                                 style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #4682B4;"
+                                 onerror="this.src='https://via.placeholder.com/40/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
+                            <div style="display: flex; flex-direction: column;">
+                                <span th:text="${td.child.firstName}">Child Name</span>
+                                <span style="font-size: 0.85rem; color: #666; font-style: italic;"
+                                      th:text="${td.transaction.description != null and td.transaction.description.contains('Refund') ? 'cancelled lunch' : 'added lunch'}">
+                                    added lunch
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Show regular description for non-lunch transactions -->
+                        <span th:if="${!td.isLunchRelated or td.child == null}" th:text="${td.transaction.description}">Deposit</span>
+                    </td>
+                    <td>
+                        <!-- Color: red for PAYMENT, green for DEPOSIT/REFUND -->
+                        <span th:style="${td.transaction.type.name() == 'PAYMENT' ? 'color: #dc3545; font-weight: 600;' : 'color: #28a745; font-weight: 600;'}"
+                              th:text="${td.transaction.amount + ' ' + p.wallet.currency}">
+                            10.00 EUR
+                        </span>
+                    </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(transactions)}">
                     <td colspan="3" >No transactions yet.</td>

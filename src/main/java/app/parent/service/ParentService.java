@@ -88,25 +88,51 @@ public class ParentService implements UserDetailsService {
     }
 
     public Parent getById(UUID id) {
-        return parentRepository.findById(id).orElseThrow(() -> new DomainExeption("Parent by id [%s] was not found.".formatted(id)));
+        Parent parent = parentRepository.findById(id).orElseThrow(() -> new DomainExeption("Parent by id [%s] was not found.".formatted(id)));
+        // Ensure role is set (default to ROLE_USER if null)
+        if (parent.getRole() == null) {
+            parent.setRole(ParentRole.ROLE_USER);
+            parentRepository.save(parent);
+        }
+        return parent;
     }
 
     public Parent findByUsername(String username) {
-        return parentRepository.findByUsername(username).orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
+        Parent parent = parentRepository.findByUsername(username).orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
+        // Ensure role is set (default to ROLE_USER if null)
+        if (parent.getRole() == null) {
+            parent.setRole(ParentRole.ROLE_USER);
+            parentRepository.save(parent);
+        }
+        return parent;
     }
 
     public void updateProfile(UUID parentId, EditRequest editRequest) {
         Parent parent = getById(parentId);
         parent.setEmail(editRequest.getEmail());
         parent.setPassword(passwordEncoder.encode(editRequest.getPassword()));
-        parent.setRole(editRequest.getRole());
+        // Ensure role is never null - default to ROLE_USER if not provided
+        parent.setRole(editRequest.getRole() != null ? editRequest.getRole() : ParentRole.ROLE_USER);
         parent.setUpdatedOn(LocalDateTime.now());
         parentRepository.save(parent);
     }
 
-    @Cacheable("users")
+    @Transactional
     public List<Parent> getAllParents() {
-        return parentRepository.findAll();
+        List<Parent> parents = parentRepository.findAll();
+        // Ensure all parents have a valid role (default to ROLE_USER if null or invalid)
+        // The converter should handle invalid values, but we ensure it here too
+        boolean needsSave = false;
+        for (Parent parent : parents) {
+            if (parent.getRole() == null) {
+                parent.setRole(ParentRole.ROLE_USER);
+                needsSave = true;
+            }
+        }
+        if (needsSave) {
+            parentRepository.saveAll(parents);
+        }
+        return parents;
     }
 
     @Transactional

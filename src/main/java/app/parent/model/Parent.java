@@ -42,11 +42,30 @@ public class Parent {
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
     private Wallet wallet;
 
-    private ParentRole role;
+    @Column(nullable = false)
+    @Convert(converter = ParentRoleConverter.class)
+    @Builder.Default
+    private ParentRole role = ParentRole.ROLE_USER;
 
     private boolean isActive;
 
     private LocalDateTime createdOn;
 
     private LocalDateTime updatedOn;
+
+    @PrePersist
+    @PreUpdate
+    protected void ensureRole() {
+        if (this.role == null) {
+            this.role = ParentRole.ROLE_USER;
+        }
+    }
+
+    @PostLoad
+    protected void ensureRoleAfterLoad() {
+        // Handle null or invalid enum values after loading from database
+        if (this.role == null) {
+            this.role = ParentRole.ROLE_USER;
+        }
+    }
 }
