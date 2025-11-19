@@ -11,11 +11,14 @@
 
 <aside class="sidebar">
     <a href="/home" class="nav-item"><h1>Menu</h1></a>
+
     <a href="/children" class="nav-item">My Kids</a>
     <a href="/wallet" class="nav-item">Wallet</a>
+
     <h1>Settings</h1>
+
     <a href="/home/profile" class="nav-item">Edit Profile</a>
-    <a href="/home/users" class="nav-item" th:if="${child.getParent().role.getDisplayName() == 'Admin'}">Users</a>
+    <a href="/home/users" class="nav-item" th:if="${child != null and child.parent != null and child.parent.role != null and child.parent.role.displayName == 'Admin'}">Users</a>
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 

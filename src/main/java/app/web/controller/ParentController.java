@@ -64,13 +64,15 @@ public class ParentController {
     }
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public ModelAndView getUsers() {
+    public ModelAndView getUsers(@AuthenticationPrincipal UserData user) {
 
         List<Parent> users = parentService.getAllParents();
+        Parent currentParent = parentService.getById(user.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("users");
         modelAndView.addObject("users", users);
+        modelAndView.addObject("parent", currentParent);
 
         return modelAndView;
     }
