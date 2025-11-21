@@ -81,7 +81,7 @@ public class WalletService {
 
 
         if (currentBalance.compareTo(amount) < 0) {
-            return transactionService.createTransaction(
+            Transaction transaction = transactionService.createTransaction(
                     wallet,
                     amount,
                     wallet.getBalance(),
@@ -91,6 +91,7 @@ public class WalletService {
                     description,
                     "Not enough balance in wallet."
             );
+            return transaction;
         }
 
         BigDecimal newBalance = currentBalance.subtract(amount);

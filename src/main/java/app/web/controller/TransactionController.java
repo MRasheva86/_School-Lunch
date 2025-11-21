@@ -49,7 +49,7 @@ public class TransactionController {
     @GetMapping("/id")
     public ModelAndView getTransactionById(@PathVariable UUID transactionId){
         Transaction transaction = transactionService.getTransactionById(transactionId);
-        ModelAndView modelAndView = new ModelAndView("details");
+        ModelAndView modelAndView = new ModelAndView("error");
         modelAndView.addObject("transaction", transaction);
         return modelAndView;
     }

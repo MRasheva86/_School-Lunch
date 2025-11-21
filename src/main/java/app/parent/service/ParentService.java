@@ -56,6 +56,7 @@ public class ParentService implements UserDetailsService {
     }
 
     @Transactional
+    @CacheEvict(value = "users", allEntries = true)
     public Parent register(RegisterRequest registerRequest) {
         this.registerRequest = registerRequest;
 
@@ -118,6 +119,7 @@ public class ParentService implements UserDetailsService {
     }
 
     @Transactional
+    @Cacheable(value = "users", key = "'all'")
     public List<Parent> getAllParents() {
         List<Parent> parents = parentRepository.findAll();
         // Ensure all parents have a valid role (default to ROLE_USER if null or invalid)
