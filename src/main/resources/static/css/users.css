@@ -5,7 +5,6 @@ body {
     font-family: "Georgia", serif;
 }
 
-/* Section wrapper */
 .users {
     margin-left: calc(300px + 2mm);
     margin-right: 2rem;/* Sidebar width + 2mm gap */
@@ -34,52 +33,6 @@ body {
     top: 0;
     z-index: 5;
 }
-
-/* Banner header: "Users of School Lunch" */
-.users-table .header-main th {
-    background-color: #1b314b;
-    color: #fff;
-    font-size: 2rem;
-    font-weight: 800;
-    padding: 12px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    border-bottom: 3px solid #1b314b;
-}
-
-/* Column headers */
-.users-table .column-header th {
-    background-color: #2e577a;
-    color: #fff;
-    padding: 12px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 1.05rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    letter-spacing: 0.5px;
-}
-
-/* Table body */
-.users-table td {
-    padding: 0.9rem 1rem;
-    font-size: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    color: #333;
-    word-wrap: break-word;
-}
-
-/* Alternating row colors */
-.users-table tr:nth-child(even) td {
-    background-color: #fffdf8;
-}
-
-/* Hover effect */
-.users-table tbody tr:hover td {
-    background-color: rgba(70, 130, 180, 0.12);
-    transition: background 0.3s ease;
-}
-
 /* Empty message */
 .empty-message {
     text-align: center;

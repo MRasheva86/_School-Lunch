@@ -1,54 +1,5 @@
-body {
-    background-image: url("https://img.freepik.com/free-photo/indian-food-circular-frame-with-copy-space_23-2148747658.jpg?semt=ais_hybrid&w=740&q=80");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    font-family: "Georgia", serif;
-    margin: 0;
-    padding: 0;
-}
-
-/* Sidebar (matches main app) */
-.sidebar {
-    width: 220px;
-    background: #2e577a;
-    color: white;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1.5rem;
-}
-
-.sidebar h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    color: navajowhite;
-    text-transform: uppercase;
-    font-weight: 800;
-}
-
-.nav-item {
-    font-size: 1.5rem;
-    display: block;
-    color: white;
-    text-decoration: none;
-    margin: 0.4rem 0;
-    padding: 0.5rem;
-    border-radius: 6px;
-    transition: background 0.2s;
-}
-
-.nav-item:hover, .nav-item.active {
-    background: #3e4c61;
-}
-
-/* Main content */
-.main-content {
-    margin-left: 260px;
-    padding: 2rem;
-}
-
+/* Note: Sidebar and main layout styles are handled by home.css */
+/* This file only contains styles for the lunch list table and form */
 /* Card layout */
 .card {
     background: antiquewhite;
@@ -66,37 +17,34 @@ body {
     color: #1b314b;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
+}.users {
+     margin-left: calc(300px + 2mm);
+     margin-right: 2rem;/* Sidebar width + 2mm gap */
+ }
+
+/* Table container */
+.table-wrapper {
+    width: calc(100% - 2mm);
+    overflow-x: auto;
 }
 
-/* Table */
-table {
+/* Table core */
+.users-table {
+    margin-top: 2rem;
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
-    background: #fff;
-    border-radius: 10px;
+    background-color: #fdf8f3;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
-thead th {
-    background-color: #2e577a;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.2rem;
+/* Sticky header */
+.users-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
-
-tbody td {
-    padding: 0.8rem;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-    color: #333;
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
-
 /* Form styling */
 form {
     max-width: 500px;
@@ -114,12 +62,17 @@ label {
     color: #1b314b;
 }
 
-select {
+select, input[type=number] {
     width: 100%;
     padding: 0.7rem;
     margin-top: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 6px;
+}
+.error {
+    color: #b91c1c;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
 }
 
 /* Button */

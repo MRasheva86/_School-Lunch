@@ -34,12 +34,10 @@ public class IndexController {
 
     @GetMapping("/login")
     public ModelAndView getLoginPage(@RequestParam(name = "loginAttemptMessage", required = false) String message) {
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         modelAndView.addObject("loginRequest", new LoginRequest());
         modelAndView.addObject("loginAttemptMessage", message);
-
         return modelAndView;
     }
 

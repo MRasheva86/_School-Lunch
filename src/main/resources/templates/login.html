@@ -43,10 +43,24 @@
 
                 <h3>Login Here</h3>
 
-                <p class="succeeded-message" ></p>
+                <!-- Error message display -->
+                <div th:if="${param.error != null}" class="error-message" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #f5c6cb;">
+                    <i class="fa fa-exclamation-circle"></i> Invalid username or password. Please try again.
+                </div>
+                
+                <!-- Success message (e.g., after registration) -->
+                <div th:if="${successMessage != null}" class="success-message" style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #c3e6cb;">
+                    <i class="fa fa-check-circle"></i> <span th:text="${successMessage}">Registration successful!</span>
+                </div>
+                
+                <!-- Logout success message -->
+                <div th:if="${param.logout != null}" class="success-message" style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #c3e6cb;">
+                    <i class="fa fa-check-circle"></i> You have been logged out successfully.
+                </div>
+
                 <label for="username">Username</label>
-                <input type="text" placeholder="Username" id="username"  th:field="*{username}">
-                <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" >Invalid username</p>
+                <input type="text" placeholder="Username" id="username" th:field="*{username}" required>
+                <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Invalid username</p>
 
                 <div class="password-field">
                     <label for="password">Password</label>
@@ -57,13 +71,7 @@
                         <i id="toggleIcon" class="fa fa-eye" onclick="togglePassword('password','toggleIcon')"></i>
                     </div>
                 </div>
-
-                <!-- 🔒 Password strength indicator -->
-                <div class="password-strength">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
+                <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Invalid password</p>
 
                 <button type="submit">Log In</button>
 
@@ -85,23 +93,7 @@
         icon.classList.toggle("fa-eye-slash");
     }
 
-    document.getElementById("password").addEventListener("input", function() {
-        const value = this.value;
-        const bars = document.querySelectorAll(".password-strength .bar");
-
-        let strength = 0;
-        if (value.length > 5) strength++;
-        if (value.length > 8) strength++;
-        if (/[A-Z]/.test(value) && /\d/.test(value)) strength++;
-
-        bars.forEach((bar, index) => {
-            if (index < strength) {
-                bar.classList.add("filled");
-            } else {
-                bar.classList.remove("filled");
-            }
-        });
-    });
+    // Removed password strength indicator for login page (not needed during login)
 </script>
 </body>
 <th:block th:insert="fragments/my-fragments :: my-website-footer"></th:block>

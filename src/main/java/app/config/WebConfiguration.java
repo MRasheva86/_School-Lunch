@@ -25,8 +25,9 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
-                        .failureUrl("/login?error")
+                        .failureUrl("/login?error=true")
                         .permitAll())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**"))
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                         .logoutSuccessUrl("/"));

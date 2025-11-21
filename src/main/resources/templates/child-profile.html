@@ -18,7 +18,7 @@
     <h1>Settings</h1>
 
     <a href="/home/profile" class="nav-item">Edit Profile</a>
-    <a href="/home/users" class="nav-item" th:if="${child != null and child.parent != null and child.parent.role != null and child.parent.role.displayName == 'Admin'}">Users</a>
+    <a href="/home/users" class="nav-item" th:if="${parent != null and parent.role != null and parent.role.displayName == 'Admin'}">Users</a>
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 

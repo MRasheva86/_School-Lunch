@@ -66,6 +66,7 @@ public class ChildController {
         editChildRequest.setGrade(child.getGrade());
         ModelAndView modelAndView = new ModelAndView("child-profile");
         modelAndView.addObject("child", child);
+        modelAndView.addObject("parent", child.getParent()); // Add parent for sidebar
         modelAndView.addObject("editChildRequest", editChildRequest);
         return modelAndView;
     }
@@ -77,6 +78,7 @@ public class ChildController {
             Child child = childService.getChildById(childId);
             ModelAndView modelAndView = new ModelAndView("child-profile");
             modelAndView.addObject("child", child);
+            modelAndView.addObject("parent", child.getParent()); // Add parent for sidebar
             modelAndView.addObject("editChildRequest", editChildRequest);
             return modelAndView;
         }
