@@ -10,58 +10,11 @@ body {
     font-family: "Georgia", serif;
 }
 
-/* Welcome header */
-.welcome-header {
-    text-align: center;
-    background-color: navajowhite;
-    padding: 1.5rem 0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.welcome-header h1 {
-    text-align: center;
-    margin: 0;
-    font-size: 2.80rem;
-    font-weight: 1000;
-    color: #272424;
-}
-
-.welcome-header p {
-    margin: 0.3rem 0 0 0;
-    font-size: 1.8rem;
-    color: #ffffff;
-}
-
-.sidebar {
-    width: 20rem;
-    background: #4682B4;
-    color: white;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-}
-
 .main-content {
     margin-left: 260px;
     padding: 2rem;
     align-items: center;
     justify-content: center;
-}
-
-.container {
-    margin-bottom: 2rem;
-}
-
-.card {
-    background: #addff3;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    padding: 1.5rem;
 }
 
 .sidebar {
@@ -101,30 +54,12 @@ body {
     background: #3e4c61;
 }
 
-/* Main layout */
-.dashboard {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
-    padding: 2rem;
-    margin-left: 260px; /* offset for sidebar */
-}
-
 /* Center content (Personal Info) */
 .main-section {
     font-size: 1.7rem;
     flex: 2;
     max-width: 600px;
     padding: 1.5rem;
-}
-
-/* Right side content (Wallet + Kids) */
-.side-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
 }
 
 /* Cards */
@@ -142,27 +77,6 @@ body {
 
 }
 
-.status-badge.active {
-    background-color: #27ae60;
-    color: white;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-}
-
-.btn-primary {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 0.5rem;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
 .action-btn {
     display: inline-block;
     width: 120px;
@@ -195,102 +109,6 @@ body {
     width: 130px;
     height: 40px;
     font-size: 1rem;
-}
-
-/* Children page styles */
-.child-card {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #4682B4;
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.child-avatar-container {
-    flex-shrink: 0;
-}
-
-.child-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #4682B4;
-    background: #fff;
-}
-
-.child-info {
-    flex: 1;
-}
-
-.child-info h4 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.child-info p {
-    margin: 5px 0;
-}
-
-.child-actions {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.empty-children {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-}
-
-.add-child-section {
-    display: none;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 2px solid #e0e0e0;
-}
-
-.add-child-section h3 {
-    margin-bottom: 30px;
-}
-
-.child-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.child-form-group {
-    display: block;
-}
-
-.child-form-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.child-form-input {
-    width: 70%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.child-form-submit {
-    padding: 12px 24px;
-    background: #4682B4;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
 }
 
 /* Child profile page styles */
@@ -333,18 +151,4 @@ body {
     display: flex;
     gap: 10px;
     margin-top: 10px;
-}
-
-/* Responsive */
-@media (max-width: 1000px) {
-    .dashboard {
-        flex-direction: column;
-        align-items: center;
-        margin-left: 240px;
-    }
-    .side-section {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 }

@@ -1,4 +1,12 @@
+.wallet-container{
+    margin-left: calc(220px + 17rem); /* Sidebar width + 2rem gap */
+    margin-right: 2rem;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    width: 100%;
+    max-width: calc(100% - 9rem); /* Adjusted for padding */
 
+}
 
 /* === HEADER === */
 header {

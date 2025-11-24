@@ -32,7 +32,6 @@ import java.util.UUID;
 @Service
 public class ParentService implements UserDetailsService {
     private final WalletRepository walletRepository;
-    private RegisterRequest registerRequest;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -58,8 +57,6 @@ public class ParentService implements UserDetailsService {
     @Transactional
     @CacheEvict(value = "users", allEntries = true)
     public Parent register(RegisterRequest registerRequest) {
-        this.registerRequest = registerRequest;
-
         Optional<Parent> optionalParent = parentRepository.findByUsername(registerRequest.getUsername());
         if (optionalParent.isPresent()) {
             throw new DomainExeption("Parent with [%s] username already exist.".formatted(registerRequest.getUsername()));

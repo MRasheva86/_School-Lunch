@@ -1,9 +1,9 @@
 /* Overall page background fix */
-body {
-    background-color: #f8f3eb;
-    margin: 0;
-    font-family: "Georgia", serif;
-}
+/*body {*/
+/*    background-color: #f8f3eb;*/
+/*    margin: 0;*/
+/*    font-family: "Georgia", serif;*/
+/*}*/
 
 .users {
     margin-left: calc(300px + 2mm);
@@ -86,7 +86,7 @@ body {
 .users-table th {
     background-color: #4682B4;
     color: white;
-    padding: 14px;
+    padding: 10px;
     text-align: center;
 }
 .users-table.header-main {

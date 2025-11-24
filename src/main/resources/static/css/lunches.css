@@ -51,6 +51,7 @@
 .lunches-section {
     margin-left: calc(220px + 2rem);
     margin-right: 2rem;
+    align-self: center;
 }
 
 .lunches-table-wrapper {
@@ -69,7 +70,11 @@
     margin-top: 2rem;
     width: 100%;
 }
-
+.delete-form{
+    display: inline;
+    margin:0.02rem;
+    padding: 0;
+}
 /* Delete button styling */
 .action-btn.remove {
     text-align: center;
