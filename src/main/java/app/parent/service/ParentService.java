@@ -55,7 +55,7 @@ public class ParentService implements UserDetailsService {
     public Parent register(RegisterRequest registerRequest) {
         Optional<Parent> optionalParent = parentRepository.findByUsername(registerRequest.getUsername());
         if (optionalParent.isPresent()) {
-            throw new DomainExeption("Parent with [%s] username already exist.".formatted(registerRequest.getUsername()));
+            throw new DomainExeption("This username is already registered. Please chose another one.");
         }
 
         Parent parent = Parent.builder()

@@ -49,16 +49,10 @@
 
 /* Table section styling */
 .lunches-section {
-    margin-left: calc(220px + 2rem);
+    margin-left: 0;
     margin-right: 2rem;
-    align-self: center;
-}
-
-.lunches-table-wrapper {
-    width: 100%;
-    max-width: calc(100% - 4rem);
-    margin-left: auto;
-    margin-right: auto;
+    width: calc(100% - 2rem);
+    box-sizing: border-box;
 }
 
 .lunches-table {
@@ -68,7 +62,9 @@
 /* Container styling */
 .lunches-container {
     margin-top: 2rem;
-    width: 100%;
+    width: calc(100% - 4rem);
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 .delete-form{
     display: inline;
@@ -84,7 +80,7 @@
     background: antiquewhite;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 2rem;
+    padding: 1rem;
     margin-bottom: 2rem;
     text-align: center;
 }
@@ -109,7 +105,7 @@
 
 /* Table core */
 .users-table {
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 100%;
     border-collapse: collapse;
     background-color: #fdf8f3;
@@ -123,6 +119,7 @@
     position: sticky;
     top: 0;
     z-index: 5;
+    font-size: 1.5rem;
 }
 /* Form styling */
 form {

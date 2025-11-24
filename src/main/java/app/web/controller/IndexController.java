@@ -86,8 +86,23 @@ public class IndexController {
             parentService.register(registerRequest);
             redirectAttributes.addFlashAttribute("successMessage", "Registration successful! Please login.");
             return "redirect:/login";
-        } catch (Exception e) {
+        } catch (app.expetion.DomainExeption e) {
+            // Use the exception message directly (already user-friendly)
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/register";
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            // Handle database constraint violations (e.g., unique constraint on username or email)
+            String errorMessage = e.getMessage();
+            if (errorMessage != null && (errorMessage.contains("username") || errorMessage.contains("UK_") || errorMessage.contains("unique"))) {
+                redirectAttributes.addFlashAttribute("errorMessage", "This username is already registered. Please chose another one.");
+            } else if (errorMessage != null && errorMessage.contains("email")) {
+                redirectAttributes.addFlashAttribute("errorMessage", "This email is already registered. Please use another one.");
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage", "Registration failed. Please try again.");
+            }
+            return "redirect:/register";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred during registration. Please try again.");
             return "redirect:/register";
         }
     }

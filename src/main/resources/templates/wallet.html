@@ -67,7 +67,7 @@
                     <td>
                         <!-- Show child image and name for lunch-related transactions -->
                         <div th:if="${td.isLunchRelated and td.child != null}" class="transaction-child-info">
-                            <img th:src="${td.child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
+                            <img th:src="${td.child.imagePath != null ? td.child.imagePath : (td.child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png')}"
                                  th:alt="${td.child.firstName}"
                                  class="transaction-child-avatar"
                                  onerror="this.src='https://via.placeholder.com/40/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">

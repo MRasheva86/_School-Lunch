@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Child Profile</title>
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/child-profile.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -28,10 +29,17 @@
         
         <div class="child-profile-header">
             <div class="child-profile-avatar-container">
-                <img th:src="${child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
-                     alt="Child Avatar"
-                     class="child-profile-avatar"
-                     onerror="this.src='https://via.placeholder.com/80/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
+                <label for="image" class="avatar-upload-label" title="Click to change image">
+                    <img id="avatar-preview" 
+                         th:src="${child.imagePath != null ? child.imagePath : (child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png')}"
+                         alt="Child Avatar"
+                         class="child-profile-avatar"
+                         onerror="this.src='https://via.placeholder.com/80/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
+                    <div class="avatar-overlay">
+                        <span class="avatar-edit-icon">📷</span>
+                        <span class="avatar-edit-text">Change Image</span>
+                    </div>
+                </label>
             </div>
 
             <div class="child-profile-info">
@@ -44,7 +52,9 @@
         <form th:action="@{/children/{id}/child-profile(id=${child.id})}"
               method="post"
               th:object="${editChildRequest}"
+              enctype="multipart/form-data"
               class="child-profile-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <input type="hidden" name="_method" value="PUT">
             
             <div class="profile-form-group">
@@ -71,6 +81,14 @@
                 <p th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}" class="profile-error"></p>
             </div>
             
+            <!-- Hidden file input - triggered by clicking avatar -->
+            <input type="file" 
+                   id="image" 
+                   name="image" 
+                   accept="image/*"
+                   style="display: none;"
+                   onchange="previewImage(this)">
+            
             <div class="child-profile-actions">
                 <button type="submit"
                         class="action-btn add">
@@ -84,6 +102,18 @@
         </form>
     </div>
 </section>
+
+<script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('avatar-preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 </body>
 </html>
