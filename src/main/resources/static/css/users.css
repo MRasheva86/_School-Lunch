@@ -83,7 +83,11 @@ body {
     background-color: #4682B4;
     color: white;
     padding: 14px;
-    text-align: left;
+    text-align: center;
+}
+.users-table.header-main {
+    color: #062a51;
+    font-size: 1.7rem;
 }
 
 .users-table td {

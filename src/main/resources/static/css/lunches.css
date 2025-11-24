@@ -47,7 +47,7 @@
 }
 /* Form styling */
 form {
-    max-width: 500px;
+    max-width: 400px;
     margin: 0 auto;
     background: #f8f4ef;
     padding: 1.5rem;
@@ -63,7 +63,7 @@ label {
 }
 
 select, input[type=number] {
-    width: 100%;
+    width: 80%;
     padding: 0.7rem;
     margin-top: 0.5rem;
     border: 1px solid #ccc;
