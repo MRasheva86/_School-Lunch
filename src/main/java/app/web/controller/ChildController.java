@@ -52,8 +52,6 @@ public class ChildController {
 
     @DeleteMapping("/{childId}")
     public String deleteChild(@AuthenticationPrincipal UserData user, @PathVariable UUID childId) {
-        Parent parent = parentService.getById(user.getUserId());
-        Child child = childService.getChildById(childId);
         childService.deleteChild(childId);
         return "redirect:/children";
     }

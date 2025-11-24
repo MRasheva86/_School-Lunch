@@ -8,7 +8,6 @@ import app.parent.model.ParentRole;
 import app.parent.repository.ParentRepository;
 import app.security.UserData;
 import app.wallet.model.Wallet;
-import app.wallet.repository.WalletRepository;
 import app.wallet.service.WalletService;
 import app.web.dto.EditRequest;
 import app.web.dto.RegisterRequest;
@@ -31,27 +30,24 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class ParentService implements UserDetailsService {
-    private final WalletRepository walletRepository;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Parent parent = parentRepository.findByUsername(username)
-                .orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
-        return new UserData(parent.getId(), username, parent.getPassword(), parent.isActive(), parent.getRole());
-    }
-
     private final ParentRepository parentRepository;
     private final PasswordEncoder passwordEncoder;
     private final ChildRepository childRepository;
     private final WalletService walletService;
 
     @Autowired
-    public ParentService(ParentRepository parentRepository, PasswordEncoder passwordEncoder, ChildRepository childRepository, WalletService walletService, WalletRepository walletRepository) {
+    public ParentService(ParentRepository parentRepository, PasswordEncoder passwordEncoder, ChildRepository childRepository, WalletService walletService) {
         this.parentRepository = parentRepository;
         this.passwordEncoder = passwordEncoder;
         this.childRepository = childRepository;
         this.walletService = walletService;
-        this.walletRepository = walletRepository;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Parent parent = parentRepository.findByUsername(username)
+                .orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
+        return new UserData(parent.getId(), username, parent.getPassword(), parent.isActive(), parent.getRole());
     }
 
     @Transactional
