@@ -141,14 +141,5 @@ public class WalletController {
 
         return "redirect:/wallet";
     }
-//    @PostMapping("/wallet")
-//    public String addMoney(@AuthenticationPrincipal UserData user, WalletDepositRequest walletDepositRequest) {
-//       Wallet wallet = walletService.getWalletByParentId(user.getUserId());
-//       walletService.deposit(wallet.getId(), walletDepositRequest.getAmount(), "Deposit via wallet page");
-//       return "redirect:/wallet";
-//        // List of transactions must added and updated after deposit
-//    }
-
-
 
 }

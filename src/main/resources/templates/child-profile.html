@@ -26,41 +26,40 @@
     <div class="card profile-card">
         <h3>✏️ Edit Child Profile</h3>
         
-        <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 30px;">
-            <div style="flex-shrink: 0;">
+        <div class="child-profile-header">
+            <div class="child-profile-avatar-container">
                 <img th:src="${child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
                      alt="Child Avatar"
-                     style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #4682B4; background: #fff;"
+                     class="child-profile-avatar"
                      onerror="this.src='https://via.placeholder.com/80/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
             </div>
 
-            <div style="flex: 1;">
-                <h4 style="margin-bottom: 10px; color: #333;">
+            <div class="child-profile-info">
+                <h4>
                     <span th:text="${child.firstName + ' ' + child.lastName}">Child Name</span>
                 </h4>
-<!--                <p style="margin: 5px 0;"><strong>Gender:</strong> <span th:text="${child.gender.getDisplayName()}">-</span></p>-->
             </div>
         </div>
 
         <form th:action="@{/children/{id}/child-profile(id=${child.id})}"
               method="post"
               th:object="${editChildRequest}"
-              style="display: flex; flex-direction: column; gap: 15px;">
+              class="child-profile-form">
             <input type="hidden" name="_method" value="PUT">
             
-            <div>
-                <label for="school" style="display: block; margin-bottom: 5px; font-weight: 500;">School:</label>
+            <div class="profile-form-group">
+                <label for="school" class="profile-label">School:</label>
                 <input type="text" 
                        id="school" 
                        th:field="*{school}" 
                        placeholder="Enter school name" 
                        required
-                       style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                <p th:if="${#fields.hasErrors('school')}" th:errors="*{school}" style="color: red; margin-top: 5px;"></p>
+                       class="profile-input">
+                <p th:if="${#fields.hasErrors('school')}" th:errors="*{school}" class="profile-error"></p>
             </div>
             
-            <div>
-                <label for="grade" style="display: block; margin-bottom: 5px; font-weight: 500;">Grade:</label>
+            <div class="profile-form-group">
+                <label for="grade" class="profile-label">Grade:</label>
                 <input type="number" 
                        id="grade" 
                        th:field="*{grade}" 
@@ -68,11 +67,11 @@
                        min="1" 
                        max="12" 
                        required
-                       style="width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-                <p th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}" style="color: red; margin-top: 5px;"></p>
+                       class="profile-input">
+                <p th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}" class="profile-error"></p>
             </div>
             
-            <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <div class="child-profile-actions">
                 <button type="submit"
                         class="action-btn add">
                     Update Child

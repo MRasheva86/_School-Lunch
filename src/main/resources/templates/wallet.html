@@ -46,15 +46,13 @@
 
                     <button type="submit" class="primary">Add Money</button>
                 </form>
-                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"
-                     style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: #d1e7dd; color: #0f5132; border: 1px solid #badbcc;"></div>
-                <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"
-                     style="margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: #f8d7da; color: #842029; border: 1px solid #f5c2c7;"></div>
+                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+                <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
             </section>
 
         <section class="transactions" th:if="${transactions != null}">
             <h2>Transaction History</h2>
-            <p style="margin-bottom: 12px; color: #666; font-size: 0.95rem;">Showing latest 5 transactions.</p>
+            <p class="subtitle">Showing latest 5 transactions.</p>
             <table class="transaction-table">
                 <thead>
                 <tr>
@@ -68,14 +66,14 @@
                     <td th:text="${#temporals.format(td.transaction.createdOn, 'dd-MM-yyyy HH:mm')}">12-10-2025</td>
                     <td>
                         <!-- Show child image and name for lunch-related transactions -->
-                        <div th:if="${td.isLunchRelated and td.child != null}" style="display: flex; align-items: center; gap: 10px;">
+                        <div th:if="${td.isLunchRelated and td.child != null}" class="transaction-child-info">
                             <img th:src="${td.child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png'}"
                                  th:alt="${td.child.firstName}"
-                                 style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #4682B4;"
+                                 class="transaction-child-avatar"
                                  onerror="this.src='https://via.placeholder.com/40/4682B4/ffffff?text=' + encodeURIComponent(this.alt)">
-                            <div style="display: flex; flex-direction: column;">
+                            <div class="transaction-child-details">
                                 <span th:text="${td.child.firstName}">Child Name</span>
-                                <span style="font-size: 0.85rem; color: #666; font-style: italic;"
+                                <span class="transaction-child-name"
                                       th:text="${td.transaction.description != null and td.transaction.description.contains('Refund') ? 'cancelled lunch' : 'added lunch'}">
                                     added lunch
                                 </span>
@@ -86,7 +84,7 @@
                     </td>
                     <td>
                         <!-- Color: red for PAYMENT, green for DEPOSIT/REFUND -->
-                        <span th:style="${td.transaction.type.name() == 'PAYMENT' ? 'color: #dc3545; font-weight: 600;' : 'color: #28a745; font-weight: 600;'}"
+                        <span th:class="${td.transaction.type.name() == 'PAYMENT' ? 'transaction-amount-payment' : 'transaction-amount-deposit'}"
                               th:text="${td.transaction.amount + ' ' + p.wallet.currency}">
                             10.00 EUR
                         </span>

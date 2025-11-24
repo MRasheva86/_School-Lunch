@@ -197,6 +197,144 @@ body {
     font-size: 1rem;
 }
 
+/* Children page styles */
+.child-card {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4682B4;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.child-avatar-container {
+    flex-shrink: 0;
+}
+
+.child-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4682B4;
+    background: #fff;
+}
+
+.child-info {
+    flex: 1;
+}
+
+.child-info h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.child-info p {
+    margin: 5px 0;
+}
+
+.child-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.empty-children {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.add-child-section {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid #e0e0e0;
+}
+
+.add-child-section h3 {
+    margin-bottom: 30px;
+}
+
+.child-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.child-form-group {
+    display: block;
+}
+
+.child-form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.child-form-input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.child-form-submit {
+    padding: 12px 24px;
+    background: #4682B4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Child profile page styles */
+.child-profile-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.child-profile-avatar-container {
+    flex-shrink: 0;
+}
+
+.child-profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4682B4;
+    background: #fff;
+}
+
+.child-profile-info {
+    flex: 1;
+}
+
+.child-profile-info h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.child-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.child-profile-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
 /* Responsive */
 @media (max-width: 1000px) {
     .dashboard {

@@ -87,3 +87,27 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 12px 25px rgba(70, 130, 180, 0.4) !important;
 }
+
+/* Navbar text styles */
+.navbar-left h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.navbar-left p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+}
+
+/* Welcome card styles */
+.box .card h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.box .card .welcome-actions {
+    margin-top: 2rem;
+}

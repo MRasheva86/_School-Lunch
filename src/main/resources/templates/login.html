@@ -44,17 +44,17 @@
                 <h3>Login Here</h3>
 
                 <!-- Error message display -->
-                <div th:if="${param.error != null}" class="error-message" style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #f5c6cb;">
+                <div th:if="${param.error != null}" class="error-message">
                     <i class="fa fa-exclamation-circle"></i> Invalid username or password. Please try again.
                 </div>
                 
                 <!-- Success message (e.g., after registration) -->
-                <div th:if="${successMessage != null}" class="success-message" style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #c3e6cb;">
+                <div th:if="${successMessage != null}" class="success-message">
                     <i class="fa fa-check-circle"></i> <span th:text="${successMessage}">Registration successful!</span>
                 </div>
                 
                 <!-- Logout success message -->
-                <div th:if="${param.logout != null}" class="success-message" style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #c3e6cb;">
+                <div th:if="${param.logout != null}" class="success-message">
                     <i class="fa fa-check-circle"></i> You have been logged out successfully.
                 </div>
 

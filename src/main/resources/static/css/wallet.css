@@ -131,3 +131,66 @@ header p {
     color: #27ae60;
     text-align: right;
 }
+
+/* Alert messages */
+.alert-success {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+.alert-danger {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+/* Transaction history subtitle */
+.transactions p.subtitle {
+    margin-bottom: 12px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Transaction description with child info */
+.transaction-child-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.transaction-child-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #4682B4;
+}
+
+.transaction-child-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-child-name {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Transaction amount colors */
+.transaction-amount-payment {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.transaction-amount-deposit {
+    color: #28a745;
+    font-weight: 600;
+}
