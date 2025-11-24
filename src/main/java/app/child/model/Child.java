@@ -40,6 +40,6 @@ public class Child {
     @Enumerated(EnumType.STRING)
     private ChildGender gender;
 
-    @Column(nullable = true)
+    @Column
     private String imagePath; // Path to uploaded image, null means use default avatar
 }
