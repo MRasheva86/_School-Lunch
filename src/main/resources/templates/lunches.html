@@ -94,7 +94,9 @@
                     <option th:if="${#lists.isEmpty(dayOptions)}" value="" disabled>No available days</option>
                     <option th:each="day : ${dayOptions}"
                             th:value="${day.name()}"
-                            th:text="${#strings.capitalize(day.name().toLowerCase())}"></option>
+                            th:with="today=${T(java.time.LocalDate).now()},
+                                     targetDate=${today.with(T(java.time.temporal.TemporalAdjusters).nextOrSame(day))}"
+                            th:text="${#strings.capitalize(day.name().toLowerCase()) + ' (' + #temporals.format(targetDate, 'dd-MM-yyyy') + ')'}"></option>
                 </select>
                 <label>Meal</label>
                 <select th:field="*{meal}">
