@@ -21,6 +21,7 @@ public class WebConfiguration implements WebMvcConfigurer {
                        .requestMatchers("/css/**", "/js/**", "/images/**", "/", "/register", "/login").permitAll()
                        .requestMatchers("/actuator/**").permitAll()
                        .requestMatchers("/users").hasRole("ADMIN")
+                       .requestMatchers("/admin/scheduler/**").hasRole("ADMIN")
                           .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

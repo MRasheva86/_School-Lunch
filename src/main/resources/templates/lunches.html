@@ -65,7 +65,7 @@
                     <td th:text="${l.dayOfWeek != null ? #strings.capitalize(#strings.toLowerCase(l.dayOfWeek)) : 'N/A'}">Monday</td>
                     <td th:text="${T(app.lunch.client.dto.MealOption).valueOf(l.meal).displayName}">Lunch order</td>
                     <td th:text="${l.quantity}">1</td>
-                    <td th:text="${l.status}">PAID</td>
+                    <td th:text="${l.status != null ? T(app.lunch.client.dto.LunchStatus).fromString(l.status).displayName : 'Pending'}">Paid</td>
                     <td th:text="${l.total}">0.00</td>
                     <td>
                         <form th:action="@{/children/{childId}/lunches/{lunchId}(childId=${child.id}, lunchId=${l.id})}"
