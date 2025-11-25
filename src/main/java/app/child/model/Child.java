@@ -41,5 +41,5 @@ public class Child {
     private ChildGender gender;
 
     @Column
-    private String imagePath; // Path to uploaded image, null means use default avatar
+    private String imagePath;
 }

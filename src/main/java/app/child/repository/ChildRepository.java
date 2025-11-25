@@ -10,8 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface ChildRepository extends JpaRepository<Child, UUID> {
-    Child findChildByFirstName(String firstName);
 
- //   @Query("SELECT c FROM Child c WHERE c.parent.id = :parentId")
     List<Child> findByParentId(@Param("parentId") UUID parentId);
 }

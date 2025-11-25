@@ -2,7 +2,7 @@ package app.parent.service;
 
 import app.child.model.Child;
 import app.child.repository.ChildRepository;
-import app.expetion.DomainExeption;
+import app.expetion.DomainException;
 import app.parent.model.Parent;
 import app.parent.model.ParentRole;
 import app.parent.repository.ParentRepository;
@@ -47,7 +47,7 @@ public class ParentService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.debug("Loading user by username: {}", username);
         Parent parent = parentRepository.findByUsername(username)
-                .orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
+                .orElseThrow(() -> new DomainException("Parent with username [%s] not found.".formatted(username)));
         return new UserData(parent.getId(), username, parent.getPassword(), parent.isActive(), parent.getRole());
     }
 
@@ -58,7 +58,7 @@ public class ParentService implements UserDetailsService {
         Optional<Parent> optionalParent = parentRepository.findByUsername(registerRequest.getUsername());
         if (optionalParent.isPresent()) {
             log.warn("Registration failed: username {} already exists", registerRequest.getUsername());
-            throw new DomainExeption("This username is already registered. Please chose another one.");
+            throw new DomainException("This username is already registered. Please chose another one.");
         }
 
         Parent parent = Parent.builder()
@@ -87,7 +87,7 @@ public class ParentService implements UserDetailsService {
 
     public Parent getById(UUID id) {
         log.debug("Getting parent by id: {}", id);
-        Parent parent = parentRepository.findById(id).orElseThrow(() -> new DomainExeption("Parent by id [%s] was not found.".formatted(id)));
+        Parent parent = parentRepository.findById(id).orElseThrow(() -> new DomainException("Parent by id [%s] was not found.".formatted(id)));
         // Ensure role is set (default to ROLE_USER if null)
         if (parent.getRole() == null) {
             log.debug("Setting default role for parent: {}", id);
@@ -99,7 +99,7 @@ public class ParentService implements UserDetailsService {
 
     public Parent findByUsername(String username) {
         log.debug("Finding parent by username: {}", username);
-        Parent parent = parentRepository.findByUsername(username).orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
+        Parent parent = parentRepository.findByUsername(username).orElseThrow(() -> new DomainException("Parent with username [%s] not found.".formatted(username)));
         // Ensure role is set (default to ROLE_USER if null)
         if (parent.getRole() == null) {
             log.debug("Setting default role for parent: {}", username);
@@ -160,7 +160,7 @@ public class ParentService implements UserDetailsService {
     public void updateUserRole(UUID userId, String newRole) {
         log.info("Updating role for user: {} to {}", userId, newRole);
         Parent parent = parentRepository.findById(userId)
-                .orElseThrow(() -> new DomainExeption("User not found"));
+                .orElseThrow(() -> new DomainException("User not found"));
 
         parent.setRole(ParentRole.valueOf(newRole));
 

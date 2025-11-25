@@ -1,5 +1,6 @@
 package app.web.controller;
 
+import app.expetion.DomainException;
 import app.parent.model.Parent;
 import app.parent.service.ParentService;
 import app.wallet.model.Wallet;
@@ -84,7 +85,7 @@ public class IndexController {
             parentService.register(registerRequest);
             redirectAttributes.addFlashAttribute("successMessage", "Registration successful! Please login.");
             return "redirect:/login";
-        } catch (app.expetion.DomainExeption e) {
+        } catch (DomainException e) {
             // Use the exception message directly (already user-friendly)
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/register";

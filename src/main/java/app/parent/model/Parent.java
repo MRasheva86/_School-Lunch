@@ -43,7 +43,7 @@ public class Parent {
     private Wallet wallet;
 
     @Column(nullable = false)
-    @Convert(converter = ParentRoleConverter.class)
+    @Enumerated(EnumType.STRING)
     @Builder.Default
     private ParentRole role = ParentRole.ROLE_USER;
 
@@ -63,7 +63,7 @@ public class Parent {
 
     @PostLoad
     protected void ensureRoleAfterLoad() {
-        // Handle null or invalid enum values after loading from database
+
         if (this.role == null) {
             this.role = ParentRole.ROLE_USER;
         }

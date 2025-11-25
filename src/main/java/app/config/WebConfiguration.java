@@ -33,10 +33,9 @@ public class WebConfiguration implements WebMvcConfigurer {
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                         .logoutSuccessUrl("/"));
 
-
-
        return http.build();
     }
+
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
         return new HiddenHttpMethodFilter();

@@ -1,6 +1,6 @@
 package app.wallet.service;
 
-import app.expetion.DomainExeption;
+import app.expetion.DomainException;
 import app.parent.model.Parent;
 import app.transaction.model.Transaction;
 import app.transaction.model.TransactionStatus;
@@ -52,7 +52,7 @@ public class WalletService {
         log.info("Processing deposit: walletId={}, amount={}, description={}", walletId, amount, description);
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             log.warn("Invalid deposit amount: {} for wallet: {}", amount, walletId);
-            throw new DomainExeption("Deposit amount must be greater than 0.");
+            throw new DomainException("Deposit amount must be greater than 0.");
         }
 
         Wallet wallet = getById(walletId);
@@ -83,7 +83,7 @@ public class WalletService {
         log.info("Processing payment: walletId={}, amount={}, description={}", walletId, amount, description);
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             log.warn("Invalid payment amount: {} for wallet: {}", amount, walletId);
-            throw new DomainExeption("Payment amount must be greater than 0.");
+            throw new DomainException("Payment amount must be greater than 0.");
         }
         Wallet wallet = getById(walletId);
 
@@ -127,7 +127,7 @@ public class WalletService {
 
     private Wallet getById(UUID walletId) {
         log.debug("Getting wallet by id: {}", walletId);
-        return walletRepository.findById(walletId).orElseThrow(() -> new DomainExeption("Wallet by id [%s] was not found.".formatted(walletId)));
+        return walletRepository.findById(walletId).orElseThrow(() -> new DomainException("Wallet by id [%s] was not found.".formatted(walletId)));
     }
 
     public Wallet getWalletByParentId(UUID parentId) {

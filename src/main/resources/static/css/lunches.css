@@ -51,20 +51,20 @@
 .lunches-section {
     margin-left: 0;
     margin-right: 2rem;
-    width: calc(100% - 2rem);
+    width: 100%;
     box-sizing: border-box;
 }
 
 .lunches-table {
-    width: 100%;
+    width: 120%;
 }
 
 /* Container styling */
 .lunches-container {
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: calc(100% - 4rem);
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 .delete-form{
     display: inline;

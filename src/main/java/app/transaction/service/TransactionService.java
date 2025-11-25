@@ -1,6 +1,6 @@
 package app.transaction.service;
 
-import app.expetion.DomainExeption;
+import app.expetion.DomainException;
 import app.wallet.model.Wallet;
 import app.transaction.model.Transaction;
 import app.transaction.model.TransactionStatus;
@@ -54,7 +54,7 @@ public class TransactionService {
     public Transaction getTransactionById(UUID transactionId) {
         log.debug("Getting transaction by id: {}", transactionId);
         return transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new DomainExeption("Transaction with id [%s] not found.".formatted(transactionId)));
+                .orElseThrow(() -> new DomainException("Transaction with id [%s] not found.".formatted(transactionId)));
     }
 
     public void deleteAllByWalletId(UUID walletId) {

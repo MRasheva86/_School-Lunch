@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ChildGender {
+
     MALE ("Boy"),
     FEMALE ("Girl");
 
