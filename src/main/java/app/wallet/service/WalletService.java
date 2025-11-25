@@ -8,6 +8,7 @@ import app.transaction.model.TransactionType;
 import app.transaction.service.TransactionService;
 import app.wallet.model.Wallet;
 import app.wallet.repository.WalletRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.Currency;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class WalletService {
 
@@ -31,7 +33,7 @@ public class WalletService {
     }
 
     public Wallet createWallet(Parent parent) {
-
+        log.info("Creating wallet for parent: {}", parent.getId());
         Wallet wallet = Wallet.builder()
                 .owner(parent)
                 .balance(BigDecimal.valueOf(0))
@@ -40,12 +42,16 @@ public class WalletService {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        return walletRepository.save(wallet);
+        Wallet savedWallet = walletRepository.save(wallet);
+        log.info("Successfully created wallet: {} for parent: {}", savedWallet.getId(), parent.getId());
+        return savedWallet;
     }
 
     @Transactional
     public Transaction deposit(UUID walletId, BigDecimal amount, String description) {
+        log.info("Processing deposit: walletId={}, amount={}, description={}", walletId, amount, description);
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            log.warn("Invalid deposit amount: {} for wallet: {}", amount, walletId);
             throw new DomainExeption("Deposit amount must be greater than 0.");
         }
 
@@ -58,7 +64,7 @@ public class WalletService {
         wallet.setUpdatedOn(LocalDateTime.now());
         walletRepository.save(wallet);
 
-        return transactionService.createTransaction(
+        Transaction transaction = transactionService.createTransaction(
                 wallet,
                 amount,
                 wallet.getBalance(),
@@ -68,19 +74,24 @@ public class WalletService {
                 description,
                 null
         );
+        log.info("Successfully deposited {} to wallet: {}. New balance: {}", amount, walletId, newBalance);
+        return transaction;
     }
 
     @Transactional
     public Transaction payment(UUID walletId, BigDecimal amount, String description) {
+        log.info("Processing payment: walletId={}, amount={}, description={}", walletId, amount, description);
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            log.warn("Invalid payment amount: {} for wallet: {}", amount, walletId);
             throw new DomainExeption("Payment amount must be greater than 0.");
         }
         Wallet wallet = getById(walletId);
 
         BigDecimal currentBalance = wallet.getBalance() == null ? BigDecimal.ZERO : wallet.getBalance();
 
-
         if (currentBalance.compareTo(amount) < 0) {
+            log.warn("Insufficient balance for payment: walletId={}, balance={}, amount={}", 
+                    walletId, currentBalance, amount);
             Transaction transaction = transactionService.createTransaction(
                     wallet,
                     amount,
@@ -99,7 +110,7 @@ public class WalletService {
         wallet.setUpdatedOn(LocalDateTime.now());
         walletRepository.save(wallet);
 
-        return transactionService.createTransaction(
+        Transaction transaction = transactionService.createTransaction(
                 wallet,
                 amount,
                 wallet.getBalance(),
@@ -109,23 +120,31 @@ public class WalletService {
                 description,
                 null
         );
+        log.info("Successfully processed payment: walletId={}, amount={}. New balance: {}", 
+                walletId, amount, newBalance);
+        return transaction;
     }
 
     private Wallet getById(UUID walletId) {
+        log.debug("Getting wallet by id: {}", walletId);
         return walletRepository.findById(walletId).orElseThrow(() -> new DomainExeption("Wallet by id [%s] was not found.".formatted(walletId)));
     }
 
     public Wallet getWalletByParentId(UUID parentId) {
+        log.debug("Getting wallet for parent: {}", parentId);
         return walletRepository.findByOwnerId(parentId);
     }
+    
     public List<Transaction> getTransactionsByWalletId(UUID walletId) {
-
+        log.debug("Getting transactions for wallet: {}", walletId);
         return transactionService.getLatestTransactions(walletId);
     }
 
     @Transactional
     public void deleteWallet(UUID id) {
+        log.info("Deleting wallet: {}", id);
         transactionService.deleteAllByWalletId(id);
         walletRepository.deleteById(id);
+        log.info("Successfully deleted wallet: {}", id);
     }
 }

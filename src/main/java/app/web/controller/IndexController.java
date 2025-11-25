@@ -62,7 +62,6 @@ public class IndexController {
 
     @GetMapping("/register")
     public ModelAndView getRegisterPage() {
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("register");
         modelAndView.addObject("registerRequest", new RegisterRequest());
@@ -77,7 +76,6 @@ public class IndexController {
 
     @PostMapping("/register")
     public String register(@Valid RegisterRequest registerRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        
         if (bindingResult.hasErrors()) {
             return "register";
         }

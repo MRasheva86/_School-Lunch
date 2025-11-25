@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.UUID;
 
-
 @Controller
 @RequestMapping("/home")
 public class ParentController {
@@ -62,10 +61,10 @@ public class ParentController {
         redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");
         return "redirect:/home/profile";
     }
+    
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getUsers(@AuthenticationPrincipal UserData user) {
-
         List<Parent> users = parentService.getAllParents();
         Parent currentParent = parentService.getById(user.getUserId());
 

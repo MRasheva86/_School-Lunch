@@ -71,7 +71,6 @@ public class ChildController {
 
     @PutMapping("/{childId}/child-profile")
     public ModelAndView updateChildProfile(@Valid EditChildRequest editChildRequest, BindingResult bindingResult, @PathVariable UUID childId) {
-
         if (bindingResult.hasErrors()) {
             Child child = childService.getChildById(childId);
             ModelAndView modelAndView = new ModelAndView("child-profile");

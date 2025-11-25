@@ -45,6 +45,7 @@ public class ParentService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.debug("Loading user by username: {}", username);
         Parent parent = parentRepository.findByUsername(username)
                 .orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
         return new UserData(parent.getId(), username, parent.getPassword(), parent.isActive(), parent.getRole());
@@ -53,8 +54,10 @@ public class ParentService implements UserDetailsService {
     @Transactional
     @CacheEvict(value = "users", allEntries = true)
     public Parent register(RegisterRequest registerRequest) {
+        log.info("Registering new parent: {}", registerRequest.getUsername());
         Optional<Parent> optionalParent = parentRepository.findByUsername(registerRequest.getUsername());
         if (optionalParent.isPresent()) {
+            log.warn("Registration failed: username {} already exists", registerRequest.getUsername());
             throw new DomainExeption("This username is already registered. Please chose another one.");
         }
 
@@ -70,21 +73,24 @@ public class ParentService implements UserDetailsService {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-
         Wallet wallet = walletService.createWallet(parent);
         parent.setWallet(wallet);
-        parentRepository.save(parent);
-        return parent;
+        Parent savedParent = parentRepository.save(parent);
+        log.info("Successfully registered parent: {} with id: {}", savedParent.getUsername(), savedParent.getId());
+        return savedParent;
     }
 
     public List<Child> getChildren(Parent parent) {
+        log.debug("Getting children for parent: {}", parent.getId());
         return childRepository.findAll();
     }
 
     public Parent getById(UUID id) {
+        log.debug("Getting parent by id: {}", id);
         Parent parent = parentRepository.findById(id).orElseThrow(() -> new DomainExeption("Parent by id [%s] was not found.".formatted(id)));
         // Ensure role is set (default to ROLE_USER if null)
         if (parent.getRole() == null) {
+            log.debug("Setting default role for parent: {}", id);
             parent.setRole(ParentRole.ROLE_USER);
             parentRepository.save(parent);
         }
@@ -92,9 +98,11 @@ public class ParentService implements UserDetailsService {
     }
 
     public Parent findByUsername(String username) {
+        log.debug("Finding parent by username: {}", username);
         Parent parent = parentRepository.findByUsername(username).orElseThrow(() -> new DomainExeption("Parent with username [%s] not found.".formatted(username)));
         // Ensure role is set (default to ROLE_USER if null)
         if (parent.getRole() == null) {
+            log.debug("Setting default role for parent: {}", username);
             parent.setRole(ParentRole.ROLE_USER);
             parentRepository.save(parent);
         }
@@ -102,6 +110,7 @@ public class ParentService implements UserDetailsService {
     }
 
     public void updateProfile(UUID parentId, EditRequest editRequest) {
+        log.info("Updating profile for parent: {}", parentId);
         Parent parent = getById(parentId);
         parent.setEmail(editRequest.getEmail());
         parent.setPassword(passwordEncoder.encode(editRequest.getPassword()));
@@ -109,11 +118,13 @@ public class ParentService implements UserDetailsService {
         parent.setRole(editRequest.getRole() != null ? editRequest.getRole() : ParentRole.ROLE_USER);
         parent.setUpdatedOn(LocalDateTime.now());
         parentRepository.save(parent);
+        log.info("Successfully updated profile for parent: {}", parentId);
     }
 
     @Transactional
     @Cacheable(value = "users", key = "'all'")
     public List<Parent> getAllParents() {
+        log.debug("Getting all parents");
         List<Parent> parents = parentRepository.findAll();
         // Ensure all parents have a valid role (default to ROLE_USER if null or invalid)
         // The converter should handle invalid values, but we ensure it here too
@@ -125,30 +136,35 @@ public class ParentService implements UserDetailsService {
             }
         }
         if (needsSave) {
+            log.debug("Updating {} parents with default role", parents.size());
             parentRepository.saveAll(parents);
         }
+        log.debug("Retrieved {} parents", parents.size());
         return parents;
     }
 
     @Transactional
     @CacheEvict(value = "users", allEntries = true)
     public void deleteParent(UUID userId) {
+        log.info("Deleting parent: {}", userId);
         Wallet wallet = walletService.getWalletByParentId(userId);
         if (wallet != null) {
             walletService.deleteWallet(wallet.getId());
         }
         parentRepository.deleteById(userId);
+        log.info("Successfully deleted parent: {}", userId);
     }
 
     @Transactional
     @CacheEvict(value = "users", allEntries = true)
     public void updateUserRole(UUID userId, String newRole) {
-
+        log.info("Updating role for user: {} to {}", userId, newRole);
         Parent parent = parentRepository.findById(userId)
                 .orElseThrow(() -> new DomainExeption("User not found"));
 
         parent.setRole(ParentRole.valueOf(newRole));
 
         parentRepository.save(parent);
+        log.info("Successfully updated role for user: {} to {}", userId, newRole);
     }
 }
