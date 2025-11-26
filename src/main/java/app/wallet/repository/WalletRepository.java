@@ -9,5 +9,4 @@ public interface WalletRepository extends JpaRepository<Wallet, UUID> {
 
    Wallet findByOwnerId(UUID uuid);
 
-
 }

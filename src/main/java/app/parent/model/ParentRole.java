@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ParentRole {
+
     ROLE_USER ("User"),
     ROLE_ADMIN ("Admin");
 
