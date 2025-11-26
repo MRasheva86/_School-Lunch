@@ -23,11 +23,6 @@ public class GlobalExceptionHandler {
         return modelAndView;
     }
 
-    /**
-     * Handles all other unhandled exceptions to prevent white pages from being shown to users.
-     * This ensures that any exception that isn't caught by specific handlers will
-     * display a user-friendly error page instead of a blank white page.
-     */
     @ExceptionHandler(Exception.class)
     public ModelAndView handleGenericException(Exception e) {
         log.error("Unhandled exception occurred", e);

@@ -1,7 +1,5 @@
 package app.parent.service;
 
-import app.child.model.Child;
-import app.child.repository.ChildRepository;
 import app.expetion.DomainException;
 import app.parent.model.Parent;
 import app.parent.model.ParentRole;
@@ -32,14 +30,12 @@ import java.util.UUID;
 public class ParentService implements UserDetailsService {
     private final ParentRepository parentRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ChildRepository childRepository;
     private final WalletService walletService;
 
     @Autowired
-    public ParentService(ParentRepository parentRepository, PasswordEncoder passwordEncoder, ChildRepository childRepository, WalletService walletService) {
+    public ParentService(ParentRepository parentRepository, PasswordEncoder passwordEncoder, WalletService walletService) {
         this.parentRepository = parentRepository;
         this.passwordEncoder = passwordEncoder;
-        this.childRepository = childRepository;
         this.walletService = walletService;
     }
 
@@ -78,11 +74,6 @@ public class ParentService implements UserDetailsService {
         Parent savedParent = parentRepository.save(parent);
         log.info("Successfully registered parent: {} with id: {}", savedParent.getUsername(), savedParent.getId());
         return savedParent;
-    }
-
-    public List<Child> getChildren(Parent parent) {
-        log.debug("Getting children for parent: {}", parent.getId());
-        return childRepository.findAll();
     }
 
     public Parent getById(UUID id) {
