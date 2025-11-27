@@ -101,8 +101,26 @@ public class ChildService {
     }
 
     public Child getChildById(UUID childId) {
-
         return childRepository.findById(childId).orElseThrow(() ->new DomainException("Child not found"));
+    }
+
+    public void ensureChildOwnership(UUID parentId, UUID childId) {
+
+        Child child = getChildById(childId);
+
+        if (!child.getParent().getId().equals(parentId)) {
+            throw new DomainException("You can access lunches only for your own children.");
+        }
+    }
+
+    public EditChildRequest createEditChildRequest(Child child) {
+
+        EditChildRequest editChildRequest = new EditChildRequest();
+        editChildRequest.setSchool(child.getSchool());
+        editChildRequest.setGrade(child.getGrade());
+
+        return editChildRequest;
+
     }
 
     public void updateProfile(UUID childId, EditChildRequest editChildRequest) {

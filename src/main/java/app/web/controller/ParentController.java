@@ -31,40 +31,45 @@ public class ParentController {
     @GetMapping("/profile")
     public ModelAndView getEditPage(@AuthenticationPrincipal UserData user,
                                     @ModelAttribute("editRequest") EditRequest editRequest) {
+
         Parent parent = parentService.getById(user.getUserId());
         ModelAndView modelAndView = new ModelAndView("profile");
+
         if (editRequest == null || (editRequest.getEmail() == null && editRequest.getPassword() == null)) {
-            editRequest = EditRequest.builder()
-                    .email(parent.getEmail())
-                    .role(parent.getRole())
-                    .build();
+            editRequest = parentService.createEditRequest(parent);
         }
+
         modelAndView.addObject("parent", parent);
         modelAndView.addObject("editRequest", editRequest);
+
         return modelAndView;
     }
 
     @PostMapping("/profile")
     public String editProfile(@AuthenticationPrincipal UserData user,
                               @Valid @ModelAttribute("editRequest") EditRequest editRequest,
-                              BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes) {
+                              BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Please correct the highlighted fields.");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editRequest", bindingResult);
             redirectAttributes.addFlashAttribute("editRequest", editRequest);
+
             return "redirect:/home/profile";
         }
 
         Parent parent = parentService.getById(user.getUserId());
         parentService.updateProfile(parent.getId(), editRequest);
+
         redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");
+
         return "redirect:/home/profile";
     }
     
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getUsers(@AuthenticationPrincipal UserData user) {
+
         List<Parent> users = parentService.getAllParents();
         Parent currentParent = parentService.getById(user.getUserId());
 
@@ -79,7 +84,9 @@ public class ParentController {
     @DeleteMapping("/users/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
     public String deleteUser(@AuthenticationPrincipal UserData user, @PathVariable UUID userId, RedirectAttributes redirectAttributes) {
+
         parentService.deleteParent(userId);
+
         redirectAttributes.addFlashAttribute("toastType", "error-toast");
         redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
 
@@ -88,11 +95,12 @@ public class ParentController {
 
     @PatchMapping("/users/{userId}/role")
     @PreAuthorize("hasRole('ADMIN')")
-    public String updateUserRole(@PathVariable UUID userId,
-                                 @RequestParam("role") String newRole,
-                                 RedirectAttributes redirectAttributes) {
+    public String updateUserRole(@PathVariable UUID userId, @RequestParam("role") String newRole, RedirectAttributes redirectAttributes) {
+
         parentService.updateUserRole(userId, newRole);
+
         redirectAttributes.addFlashAttribute("successMessage", "User role updated successfully!");
+
         return "redirect:/home/users";
     }
 

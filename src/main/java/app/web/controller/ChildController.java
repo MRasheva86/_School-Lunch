@@ -31,7 +31,9 @@ public class ChildController {
 
     @GetMapping
     public ModelAndView getChildrenPage(@AuthenticationPrincipal UserData user) {
+
         Parent parent = parentService.getById(user.getUserId());
+
         List<Child> children = childService.getChildrenByParentId(parent.getId());
         ModelAndView modelAndView = new ModelAndView("children");
         modelAndView.addObject("parent", parent);
@@ -58,13 +60,11 @@ public class ChildController {
 
     @GetMapping("/{childId}/child-profile")
     public ModelAndView getChildProfilePage(@PathVariable UUID childId) {
-        Child child = childService.getChildById(childId);
-        EditChildRequest editChildRequest = new EditChildRequest();
-        editChildRequest.setSchool(child.getSchool());
-        editChildRequest.setGrade(child.getGrade());
+        var child = childService.getChildById(childId);
+        EditChildRequest editChildRequest = childService.createEditChildRequest(child);
         ModelAndView modelAndView = new ModelAndView("child-profile");
         modelAndView.addObject("child", child);
-        modelAndView.addObject("parent", child.getParent()); // Add parent for sidebar
+        modelAndView.addObject("parent", child.getParent());
         modelAndView.addObject("editChildRequest", editChildRequest);
         return modelAndView;
     }

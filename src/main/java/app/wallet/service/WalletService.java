@@ -1,23 +1,32 @@
 package app.wallet.service;
 
+import app.child.model.Child;
+import app.child.service.ChildService;
 import app.expetion.DomainException;
+import app.lunch.client.dto.LunchOrder;
+import app.lunch.service.LunchService;
 import app.parent.model.Parent;
 import app.transaction.model.Transaction;
 import app.transaction.model.TransactionStatus;
 import app.transaction.model.TransactionType;
 import app.transaction.service.TransactionService;
+import app.web.dto.TransactionDisplayDto;
 import app.wallet.model.Wallet;
 import app.wallet.repository.WalletRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -25,11 +34,19 @@ public class WalletService {
 
     private final WalletRepository walletRepository;
     private final TransactionService transactionService;
+    private final ChildService childService;
+    private final LunchService lunchService;
+    private static final Pattern LUNCH_ORDER_ID_PATTERN = Pattern.compile(
+            "lunch order #([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})", 
+            Pattern.CASE_INSENSITIVE);
 
     @Autowired
-    public WalletService(WalletRepository walletRepository, TransactionService transactionService) {
+    public WalletService(WalletRepository walletRepository, TransactionService transactionService,
+                        @Lazy ChildService childService, @Lazy LunchService lunchService) {
         this.walletRepository = walletRepository;
         this.transactionService = transactionService;
+        this.childService = childService;
+        this.lunchService = lunchService;
     }
 
     public Wallet createWallet(Parent parent) {
@@ -143,6 +160,14 @@ public class WalletService {
     public Wallet getWalletByParentId(UUID parentId) {
         return walletRepository.findByOwnerId(parentId);
     }
+
+    public Wallet getOrCreateWallet(Parent parent) {
+        Wallet wallet = getWalletByParentId(parent.getId());
+        if (wallet == null) {
+            wallet = createWallet(parent);
+        }
+        return wallet;
+    }
     
     public List<Transaction> getTransactionsByWalletId(UUID walletId) {
         return transactionService.getLatestTransactions(walletId);
@@ -156,5 +181,57 @@ public class WalletService {
 
         log.info("Successfully deleted wallet: {}", id);
 
+    }
+
+    public List<TransactionDisplayDto> enrichTransactionsWithChildInfo(List<Transaction> transactions, UUID parentId) {
+        log.debug("Enriching {} transactions with child info for parent: {}", transactions.size(), parentId);
+        List<TransactionDisplayDto> dtos = new ArrayList<>();
+        List<Child> children = childService.getChildrenByParentId(parentId);
+
+        for (Transaction transaction : transactions) {
+            String description = transaction.getDescription();
+            
+            if (description != null && (description.contains("lunch order") || description.contains("Lunch order"))) {
+                Matcher matcher = LUNCH_ORDER_ID_PATTERN.matcher(description);
+                if (matcher.find()) {
+                    try {
+                        UUID lunchOrderId = UUID.fromString(matcher.group(1));
+                        Child child = findChildByLunchOrderId(children, lunchOrderId);
+                        if (child != null) {
+                            dtos.add(TransactionDisplayDto.fromTransactionWithChild(transaction, child));
+                        } else {
+                            dtos.add(TransactionDisplayDto.fromTransaction(transaction));
+                        }
+                    } catch (IllegalArgumentException e) {
+                        log.debug("Invalid UUID format in transaction description: {}", description);
+                        dtos.add(TransactionDisplayDto.fromTransaction(transaction));
+                    }
+                } else {
+                    dtos.add(TransactionDisplayDto.fromTransaction(transaction));
+                }
+            } else {
+                dtos.add(TransactionDisplayDto.fromTransaction(transaction));
+            }
+        }
+        log.debug("Enriched {} transactions with child info", dtos.size());
+        return dtos;
+    }
+    
+    private Child findChildByLunchOrderId(List<Child> children, UUID lunchOrderId) {
+        for (Child child : children) {
+            try {
+                List<LunchOrder> lunches = lunchService.getAllLunchesIncludingDeleted(child.getId());
+                boolean found = lunches.stream()
+                        .anyMatch(lunch -> lunch.getId().equals(lunchOrderId));
+                if (found) {
+                    return child;
+                }
+            } catch (Exception e) {
+                log.debug("Error while searching for lunch order {} in child {}: {}", 
+                        lunchOrderId, child.getId(), e.getMessage());
+                // Continue searching other children
+            }
+        }
+        return null;
     }
 }

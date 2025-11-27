@@ -96,15 +96,23 @@ public class ParentService implements UserDetailsService {
     }
 
     public void updateProfile(UUID parentId, EditRequest editRequest) {
-
         Parent parent = getById(parentId);
         parent.setEmail(editRequest.getEmail());
         parent.setPassword(passwordEncoder.encode(editRequest.getPassword()));
         parent.setRole(editRequest.getRole() != null ? editRequest.getRole() : ParentRole.ROLE_USER);
         parent.setUpdatedOn(LocalDateTime.now());
         parentRepository.save(parent);
-
         log.info("Successfully updated profile for parent: {}", parentId);
+    }
+    
+    /**
+     * Creates an EditRequest DTO from a Parent entity
+     */
+    public EditRequest createEditRequest(Parent parent) {
+        return EditRequest.builder()
+                .email(parent.getEmail())
+                .role(parent.getRole())
+                .build();
     }
 
     @Transactional
