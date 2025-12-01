@@ -9,7 +9,6 @@ import app.wallet.model.Wallet;
 import app.wallet.repository.WalletRepository;
 import app.wallet.service.WalletService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -30,7 +29,6 @@ import static org.mockito.Mockito.*;
  * Unit tests for {@link WalletService}
  */
 @ExtendWith(MockitoExtension.class)
-@DisplayName("WalletService Tests")
 class WalletServiceTest {
 
     @Mock
@@ -86,7 +84,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw exception when payment amount is null")
     void shouldThrowExceptionWhenPaymentAmountIsNull() {
         // When & Then
         DomainException exception = assertThrows(DomainException.class, () -> {
@@ -99,7 +96,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw exception when payment amount is zero")
     void shouldThrowExceptionWhenPaymentAmountIsZero() {
         // When & Then
         DomainException exception = assertThrows(DomainException.class, () -> {
@@ -112,7 +108,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw exception when payment amount is negative")
     void shouldThrowExceptionWhenPaymentAmountIsNegative() {
         // Given
         BigDecimal negativeAmount = new BigDecimal("-50.00");
@@ -128,7 +123,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should retrieve wallet by id when processing payment")
     void shouldRetrieveWalletById() {
         // Given
         when(walletRepository.findById(walletId)).thenReturn(java.util.Optional.of(wallet));
@@ -143,7 +137,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should handle null balance by treating it as zero")
     void shouldHandleNullBalanceAsZero() {
         // Given
         wallet.setBalance(null);
@@ -169,7 +162,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should create failed transaction when balance is insufficient")
     void shouldCreateFailedTransactionWhenBalanceInsufficient() {
         // Given
         wallet.setBalance(new BigDecimal("50.00")); // Less than payment amount
@@ -201,7 +193,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should not update wallet balance when payment fails due to insufficient funds")
     void shouldNotUpdateWalletBalanceWhenPaymentFails() {
         // Given
         BigDecimal originalBalance = new BigDecimal("50.00");
@@ -219,7 +210,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should calculate new balance correctly when payment succeeds")
     void shouldCalculateNewBalanceCorrectly() {
         // Given
         BigDecimal currentBalance = new BigDecimal("200.00");
@@ -239,7 +229,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should update wallet balance when payment succeeds")
     void shouldUpdateWalletBalanceWhenPaymentSucceeds() {
         // Given
         BigDecimal currentBalance = new BigDecimal("200.00");
@@ -258,7 +247,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should update wallet timestamp when payment succeeds")
     void shouldUpdateWalletTimestampWhenPaymentSucceeds() {
         // Given
         LocalDateTime oldTimestamp = LocalDateTime.now().minusDays(1);
@@ -278,7 +266,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should save wallet to repository when payment succeeds")
     void shouldSaveWalletToRepositoryWhenPaymentSucceeds() {
         // Given
         when(walletRepository.findById(walletId)).thenReturn(java.util.Optional.of(wallet));
@@ -293,7 +280,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should create successful transaction with correct parameters when payment succeeds")
     void shouldCreateSuccessfulTransactionWithCorrectParameters() {
         // Given
         BigDecimal currentBalance = new BigDecimal("200.00");
@@ -326,7 +312,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should return successful transaction when payment succeeds")
     void shouldReturnSuccessfulTransactionWhenPaymentSucceeds() {
         // Given
         when(walletRepository.findById(walletId)).thenReturn(java.util.Optional.of(wallet));
@@ -344,7 +329,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should return failed transaction when payment fails")
     void shouldReturnFailedTransactionWhenPaymentFails() {
         // Given
         wallet.setBalance(new BigDecimal("50.00")); // Insufficient funds
@@ -363,7 +347,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should check wallet existence before processing payment")
     void shouldCheckWalletExistenceFirst() {
         // Given
         when(walletRepository.findById(walletId)).thenReturn(java.util.Optional.of(wallet));
@@ -380,7 +363,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should update balance before creating successful transaction")
     void shouldUpdateBalanceBeforeCreatingSuccessfulTransaction() {
         // Given
         when(walletRepository.findById(walletId)).thenReturn(java.util.Optional.of(wallet));
@@ -398,7 +380,6 @@ class WalletServiceTest {
     }
 
     @Test
-    @DisplayName("Should handle payment when balance exactly equals amount")
     void shouldHandlePaymentWhenBalanceExactlyEqualsAmount() {
         // Given
         BigDecimal exactBalance = new BigDecimal("100.00");
