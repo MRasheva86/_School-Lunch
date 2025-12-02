@@ -1,9 +1,9 @@
 package app.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -11,25 +11,26 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@EnableMethodSecurity
 public class WebConfiguration implements WebMvcConfigurer {
 
     @Bean
-    @ConditionalOnBean(HttpSecurity.class)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
        http
                .authorizeHttpRequests(matchers -> matchers
                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                       .requestMatchers("/css/**", "/js/**", "/images/**", "/", "/register", "/login").permitAll()
+                       .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                       .requestMatchers("/", "/register", "/login").permitAll()
                        .requestMatchers("/actuator/**").permitAll()
-                       .requestMatchers("/users").hasRole("ADMIN")
-                          .anyRequest().authenticated())
+                       .requestMatchers("/api/**").permitAll()
+                       .requestMatchers("/home/users", "/home/users/**").hasRole("ADMIN")
+                       .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?error=true")
                         .permitAll())
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**"))
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                         .logoutSuccessUrl("/"));
