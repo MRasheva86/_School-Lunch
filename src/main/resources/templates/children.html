@@ -29,7 +29,6 @@
 
         <div th:if="${children != null and !children.isEmpty()}">
             <div th:each="child : ${children}" class="child-card">
-                <!-- Avatar on the left -->
                 <div class="child-avatar-container">
                     <img th:src="${child.imagePath != null ? child.imagePath : (child.gender.getDisplayName() == 'Boy' ? 'https://img.freepik.com/premium-vector/cute-boy-smiling-cartoon-kawaii-boy-illustration-boy-avatar-happy-kid_1001605-3446.jpg' : 'https://www.creativefabrica.com/wp-content/uploads/2022/09/20/Happy-girl-avatar-Funny-child-profile-p-Graphics-38924522-1.png')}"
                          alt="Child Avatar"
@@ -125,7 +124,6 @@
             </form>
         </div>
 
-        <!-- 🔽 Toggle Script -->
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const toggleBtn = document.getElementById("toggleAddChildBtn");

@@ -28,7 +28,6 @@
         <p th:text="${p != null ? p.firstName + ' ' + p.lastName : 'Guest'}">Parent Name</p>
     </header>
 
-    <!-- 💰 Balance Section -->
     <section class="balance">
         <h2>Available Balance</h2>
         <p class="amount" th:text="${p.wallet.balance + ' ' + p.wallet.currency}">
@@ -36,7 +35,6 @@
         </p>
     </section>
 
-    <!-- 💵 Add Money Section -->
             <section class="actions">
                 <form th:action="@{/wallet}" th:object="${walletDepositRequest}" method="post" class="add-money-form">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
@@ -79,11 +77,9 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- Show regular description for non-lunch transactions -->
                         <span th:if="${!td.isLunchRelated or td.child == null}" th:text="${td.transaction.description}">Deposit</span>
                     </td>
                     <td>
-                        <!-- Color: red for PAYMENT, green for DEPOSIT/REFUND -->
                         <span th:class="${td.transaction.type.name() == 'PAYMENT' ? 'transaction-amount-payment' : 'transaction-amount-deposit'}"
                               th:text="${td.transaction.amount + ' ' + p.wallet.currency}">
                             10.00 EUR

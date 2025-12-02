@@ -1,14 +1,13 @@
 .wallet-container{
-    margin-left: calc(220px + 17rem); /* Sidebar width + 2rem gap */
+    margin-left: calc(220px + 17rem);
     margin-right: 2rem;
     padding-top: 30px;
     padding-bottom: 50px;
     width: 100%;
-    max-width: calc(100% - 9rem); /* Adjusted for padding */
+    max-width: calc(100% - 9rem);
 
 }
 
-/* === HEADER === */
 header {
     text-align: center;
     margin-bottom: 30px;
@@ -25,7 +24,6 @@ header p {
     color: #555;
 }
 
-/* === BALANCE === */
 .balance {
     text-align: center;
     margin-bottom: 40px;
@@ -42,7 +40,6 @@ header p {
     color: #27ae60;
 }
 
-/* === ADD MONEY FORM === */
 .actions {
     display: flex;
     flex-direction: column;
@@ -99,7 +96,6 @@ header p {
     opacity: 0.9;
 }
 
-/* === TRANSACTIONS TABLE === */
 .transactions {
     margin-top: 20px;
 }
@@ -140,7 +136,6 @@ header p {
     text-align: right;
 }
 
-/* Alert messages */
 .alert-success {
     margin-top: 12px;
     padding: 10px 14px;
@@ -159,14 +154,12 @@ header p {
     border: 1px solid #f5c2c7;
 }
 
-/* Transaction history subtitle */
 .transactions p.subtitle {
     margin-bottom: 12px;
     color: #666;
     font-size: 0.95rem;
 }
 
-/* Transaction description with child info */
 .transaction-child-info {
     display: flex;
     align-items: center;
@@ -192,7 +185,6 @@ header p {
     font-style: italic;
 }
 
-/* Transaction amount colors */
 .transaction-amount-payment {
     color: #dc3545;
     font-weight: 600;

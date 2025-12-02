@@ -22,5 +22,5 @@ public class EditChildRequest {
     @Max(value = 12)
     private Integer grade;
 
-    private MultipartFile image; // Optional image upload
+    private MultipartFile image;
 }

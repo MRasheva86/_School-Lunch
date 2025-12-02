@@ -23,17 +23,14 @@
     <a href="/logout" class="nav-item">Logout</a>
 </aside>
 <div class="main-content">
-    <!-- Error messages from REST API - displayed at the top -->
     <div th:if="${errorMessage}" class="toast error-toast top-error">
         <p th:text="${errorMessage}"></p>
     </div>
     
-    <!-- Success messages -->
     <div th:if="${successMessage}" class="toast success-toast">
         <p th:text="${successMessage}"></p>
     </div>
     
-    <!-- Info messages -->
     <div th:if="${infoMessage}" class="toast info-toast">
         <p th:text="${infoMessage}"></p>
     </div>

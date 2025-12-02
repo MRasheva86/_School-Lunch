@@ -104,7 +104,7 @@ public class ChildService {
         return childRepository.findById(childId).orElseThrow(() ->new DomainException("Child not found"));
     }
 
-    public void ensureChildOwnership(UUID parentId, UUID childId) {
+    public void checkChildParent(UUID parentId, UUID childId) {
 
         Child child = getChildById(childId);
 

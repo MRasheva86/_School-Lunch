@@ -1,7 +1,3 @@
-/* Note: Sidebar and main layout styles are handled by home.css */
-/* This file contains styles for the lunch list table, form, and toast notifications */
-
-/* Toast notifications - positioned at the top */
 .toast {
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
@@ -41,13 +37,11 @@
     padding: 0;
 }
 
-/* Error toast specific styling */
 .error-toast.top-error {
     margin-top: 0;
     margin-bottom: 1.5rem;
 }
 
-/* Table section styling */
 .lunches-section {
     margin-left: 0;
     margin-right: 2rem;
@@ -59,23 +53,23 @@
     width: 120%;
 }
 
-/* Container styling */
 .lunches-container {
     margin-top: 1rem;
     width: calc(100% - 4rem);
     margin-left: 1rem;
     margin-right: 1rem;
 }
+
 .delete-form{
     display: inline;
     margin:0.02rem;
     padding: 0;
 }
-/* Delete button styling */
+
 .action-btn.remove {
     text-align: center;
 }
-/* Card layout */
+
 .card {
     background: antiquewhite;
     border-radius: 10px;
@@ -85,7 +79,6 @@
     text-align: center;
 }
 
-/* Title inside card */
 .card-title {
     font-size: 2.2rem;
     font-weight: 800;
@@ -94,16 +87,14 @@
     text-transform: uppercase;
 }.users {
      margin-left: calc(300px + 2mm);
-     margin-right: 2rem;/* Sidebar width + 2mm gap */
+     margin-right: 2rem;
  }
 
-/* Table container */
 .table-wrapper {
     width: calc(100% - 2mm);
     overflow-x: auto;
 }
 
-/* Table core */
 .users-table {
     margin-top: 1rem;
     width: 100%;
@@ -114,14 +105,13 @@
     overflow: hidden;
 }
 
-/* Sticky header */
 .users-table thead {
     position: sticky;
     top: 0;
     z-index: 5;
     font-size: 1.5rem;
 }
-/* Form styling */
+
 form {
     max-width: 400px;
     margin: 0 auto;
@@ -151,7 +141,6 @@ select, input[type=number] {
     font-size: 0.9rem;
 }
 
-/* Button */
 .action-btn {
     display: inline-block;
     width: 140px;

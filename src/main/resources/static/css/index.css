@@ -1,4 +1,3 @@
-/* index.css */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -11,7 +10,6 @@ body {
     background-attachment: fixed;
 }
 
-/* subtle dark overlay for readability */
 .page-overlay {
     position: fixed;
     inset: 0;
@@ -19,7 +17,6 @@ body {
     pointer-events: none;
 }
 
-/* navbar styling */
 .navbar {
     position: relative;
     z-index: 10;
@@ -57,7 +54,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* simple centered hero */
 .box {
     min-height: 80vh;
     display: flex;
@@ -88,7 +84,6 @@ body {
     box-shadow: 0 12px 25px rgba(70, 130, 180, 0.4) !important;
 }
 
-/* Navbar text styles */
 .navbar-left h1 {
     margin: 0;
     font-size: 1.8rem;
@@ -101,7 +96,6 @@ body {
     color: rgba(255,255,255,0.8);
 }
 
-/* Welcome card styles */
 .box .card h1 {
     font-size: 3rem;
     margin-bottom: 1rem;

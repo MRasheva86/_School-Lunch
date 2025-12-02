@@ -162,7 +162,9 @@ public class WalletService {
     }
 
     public Wallet getOrCreateWallet(Parent parent) {
+
         Wallet wallet = getWalletByParentId(parent.getId());
+
         if (wallet == null) {
             wallet = createWallet(parent);
         }
@@ -185,6 +187,7 @@ public class WalletService {
 
     public List<TransactionDisplayDto> enrichTransactionsWithChildInfo(List<Transaction> transactions, UUID parentId) {
         log.debug("Enriching {} transactions with child info for parent: {}", transactions.size(), parentId);
+
         List<TransactionDisplayDto> dtos = new ArrayList<>();
         List<Child> children = childService.getChildrenByParentId(parentId);
 
@@ -218,18 +221,20 @@ public class WalletService {
     }
     
     private Child findChildByLunchOrderId(List<Child> children, UUID lunchOrderId) {
+
         for (Child child : children) {
             try {
                 List<LunchOrder> lunches = lunchService.getAllLunchesIncludingDeleted(child.getId());
+
                 boolean found = lunches.stream()
                         .anyMatch(lunch -> lunch.getId().equals(lunchOrderId));
+
                 if (found) {
                     return child;
                 }
             } catch (Exception e) {
                 log.debug("Error while searching for lunch order {} in child {}: {}", 
                         lunchOrderId, child.getId(), e.getMessage());
-                // Continue searching other children
             }
         }
         return null;

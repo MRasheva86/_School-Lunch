@@ -56,7 +56,6 @@ body {
     background: #3e4c61;
 }
 
-/* Center content (Personal Info) */
 .main-section {
     font-size: 1.7rem;
     flex: 2;
@@ -64,7 +63,6 @@ body {
     padding: 1.5rem;
 }
 
-/* Cards */
 .card {
     background: antiquewhite;
     border-radius: 10px;
@@ -95,6 +93,7 @@ body {
     border: none;
     background-color: #4682B4;
 }
+
 .action-btn.remove {
     background-color: #f87682;
 }
@@ -102,10 +101,12 @@ body {
 .action-btn:hover {
     opacity: 0.9;
 }
+
 .action-btn.add {
     width: 130px;
     height: 40px;
 }
+
 .action-btn.cancel {
     background-color: lightslategray;
     width: 130px;

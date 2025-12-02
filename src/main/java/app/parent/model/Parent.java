@@ -63,7 +63,6 @@ public class Parent {
 
     @PostLoad
     protected void ensureRoleAfterLoad() {
-
         if (this.role == null) {
             this.role = ParentRole.ROLE_USER;
         }

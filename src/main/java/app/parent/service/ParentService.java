@@ -104,10 +104,7 @@ public class ParentService implements UserDetailsService {
         parentRepository.save(parent);
         log.info("Successfully updated profile for parent: {}", parentId);
     }
-    
-    /**
-     * Creates an EditRequest DTO from a Parent entity
-     */
+
     public EditRequest createEditRequest(Parent parent) {
         return EditRequest.builder()
                 .email(parent.getEmail())

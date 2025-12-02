@@ -50,7 +50,6 @@
             <td th:text="${u.email}">Email</td>
             <td th:text="${u.role != null ? u.role.displayName : 'ROLE_USER'}">Has Role</td>
 
-            <!-- Role & Actions -->
             <td>
                 <form
                       th:action="@{/home/users/{userId}/role(userId=${u.id})}"
@@ -96,7 +95,6 @@
         }
     });
 </script>
-<!-- Confirmation Modal -->
 <div id="confirmModal" class="confirm-modal">
     <div class="confirm-content">
         <h3>⚠️ Confirm Deletion</h3>

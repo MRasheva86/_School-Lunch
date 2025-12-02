@@ -1,17 +1,14 @@
 
 
 .users {
-    margin-left: calc(300px + 2mm);
-    margin-right: 2rem;/* Sidebar width + 2mm gap */
+    margin-left: calc(300px + 2mm);/* Sidebar width + 2mm gap */
 }
 
-/* Table container */
 .table-wrapper {
     width: calc(100% - 2mm);
     overflow-x: auto;
 }
 
-/* Table core */
 .users-table {
     margin-top: 1rem;
     width: 100%;
@@ -22,13 +19,11 @@
     overflow: hidden;
 }
 
-/* Sticky header */
 .users-table thead {
     position: sticky;
     top: 0;
     z-index: 5;
 }
-/* Empty message */
 .empty-message {
     text-align: center;
     font-style: italic;
@@ -51,7 +46,7 @@
     display: inline-block;
     margin: 4px 0;
 }
-/* Toast Message */
+
 .toast {
     position: fixed;
     top: 20px;
@@ -104,7 +99,6 @@
     font-style: italic;
 }
 
-/* Role dropdown + action buttons inline */
 .inline-form {
     display: inline-block;
 }
@@ -136,7 +130,6 @@
 .action-btn.remove:hover {
     background-color: #d24a4a;
 }
-/* Confirmation Modal */
 .confirm-modal {
     position: fixed;
     top: 0;
@@ -209,8 +202,6 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-
-/* Responsive behavior */
 @media (max-width: 1000px) {
     .users {
         margin-left: 0;

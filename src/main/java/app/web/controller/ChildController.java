@@ -35,48 +35,62 @@ public class ChildController {
         Parent parent = parentService.getById(user.getUserId());
 
         List<Child> children = childService.getChildrenByParentId(parent.getId());
+
         ModelAndView modelAndView = new ModelAndView("children");
         modelAndView.addObject("parent", parent);
         modelAndView.addObject("children", children);
         modelAndView.addObject("childRequest", new ChildRequest());
+
         return modelAndView;
     }
 
     @PostMapping("/registration")
     public String registerChild(@AuthenticationPrincipal UserData user, ChildRequest childRequest) {
+
         Parent parent = parentService.getById(user.getUserId());
         Child child = childService.registerChild(parent.getId(), childRequest);
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("parent", parent);
         modelAndView.addObject("child", child);
+
         return "redirect:/children";
     }
 
     @DeleteMapping("/{childId}")
     public String deleteChild(@AuthenticationPrincipal UserData user, @PathVariable UUID childId) {
+
         childService.deleteChild(childId);
+
         return "redirect:/children";
+
     }
 
     @GetMapping("/{childId}/child-profile")
     public ModelAndView getChildProfilePage(@PathVariable UUID childId) {
-        var child = childService.getChildById(childId);
+
+        Child child = childService.getChildById(childId);
         EditChildRequest editChildRequest = childService.createEditChildRequest(child);
+
         ModelAndView modelAndView = new ModelAndView("child-profile");
         modelAndView.addObject("child", child);
         modelAndView.addObject("parent", child.getParent());
         modelAndView.addObject("editChildRequest", editChildRequest);
+
         return modelAndView;
     }
 
     @PutMapping("/{childId}/child-profile")
     public ModelAndView updateChildProfile(@Valid EditChildRequest editChildRequest, BindingResult bindingResult, @PathVariable UUID childId) {
+
         if (bindingResult.hasErrors()) {
             Child child = childService.getChildById(childId);
+
             ModelAndView modelAndView = new ModelAndView("child-profile");
             modelAndView.addObject("child", child);
             modelAndView.addObject("parent", child.getParent()); // Add parent for sidebar
             modelAndView.addObject("editChildRequest", editChildRequest);
+
             return modelAndView;
         }
 

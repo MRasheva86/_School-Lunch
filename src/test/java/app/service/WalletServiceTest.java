@@ -40,12 +40,6 @@ class WalletServiceTest {
     @Mock
     private TransactionService transactionService;
 
-    @Mock
-    private app.child.service.ChildService childService;
-
-    @Mock
-    private app.lunch.service.LunchService lunchService;
-
     @InjectMocks
     private WalletService walletService;
 

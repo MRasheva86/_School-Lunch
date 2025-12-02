@@ -43,17 +43,14 @@
 
                 <h3>Login Here</h3>
 
-                <!-- Error message display -->
                 <div th:if="${param.error != null}" class="error-message">
                     <i class="fa fa-exclamation-circle"></i> Invalid username or password. Please try again.
                 </div>
                 
-                <!-- Success message (e.g., after registration) -->
                 <div th:if="${successMessage != null}" class="success-message">
                     <i class="fa fa-check-circle"></i> <span th:text="${successMessage}">Registration successful!</span>
                 </div>
                 
-                <!-- Logout success message -->
                 <div th:if="${param.logout != null}" class="success-message">
                     <i class="fa fa-check-circle"></i> You have been logged out successfully.
                 </div>
@@ -67,7 +64,6 @@
                     <div class="password-input-wrapper">
                         <input type="password" id="password" th:field="*{password}" placeholder="Enter password" required>
 
-                        <!-- 👁️ Toggle password visibility -->
                         <i id="toggleIcon" class="fa fa-eye" onclick="togglePassword('password','toggleIcon')"></i>
                     </div>
                 </div>
@@ -93,7 +89,6 @@
         icon.classList.toggle("fa-eye-slash");
     }
 
-    // Removed password strength indicator for login page (not needed during login)
 </script>
 </body>
 </html>
