@@ -48,31 +48,12 @@ The `_School-Lunch` project acts as the **main client** and orchestrator, forwar
 - 
 📦 Domain Model
 Entities (UUID primary keys)
-1. Parent
-id
-name
-email
-password
-role
-children (relation)
+1. Parent 
 2. Child
-id
-name
-grade
-parent (relation)
 3. Wallet
-id
-parent
-balance
-transactions (relation)
 4. Transaction
-id
-wallet (relation)
-amount
-timestamp
 5. Lunch
-id
-child
+Parent and child, wallet and transactions, and child and lunch have relations. 
 
 ✨ User Functionalities
 The Main Application implements 6+ valid domain functionalities:
